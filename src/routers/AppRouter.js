@@ -3,7 +3,7 @@ import React from 'react';
 import createHistory from 'history/createBrowserHistory';
 import LoginPage from '../components/LoginPage';
 import SignUpPage from '../components/SignUpPage';
-import TasksDashboard from '../components/TaskDashboard';
+import TasksDashboard from '../components/TasksDashboard';
 import NotFoundPage from '../components/NotFoundPage';
 import AddTask from '../components/AddTask';
 
