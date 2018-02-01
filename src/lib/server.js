@@ -8,3 +8,8 @@ export const axiosSignUp = () => {
 //     axios.post('',user)
 // }
 // export const isValid
+
+export const axiosAdd = (user) =>{
+    setTimeout(null,1000)
+    console.log(' successfully added ');
+}
