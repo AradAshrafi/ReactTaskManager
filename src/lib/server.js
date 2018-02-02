@@ -1,11 +1,37 @@
 import { server_domain } from './config';
 import {setTasks} from '../actions/tasks';
+import axios from 'axios';
+import {
+    AxiosProvider,
+    Request,
+    Get,
+    Delete,
+    Head,
+    Post,
+    Put,
+    Patch,
+    withAxios
+} from 'react-axios';
 
 export const JWT = '1234';
 
-export const axiosSignUp = () => {
-    setTimeout(null, 1000);
-    return 'xxxx';
+export const axiosSignUp = (user) => {
+    axios.post(`${server_domain}/v1/user/signup`,user)
+    .then((res)=>{
+        const userToken = res.body["token"];
+        clocalStorage.setItem('userToken', userToken);
+        console.log(localStorage.getItem('userToken'));
+
+        //axiosSignUp's this is bind to signUpPage
+        this.setState(() => ({
+            success: 'Successfully registered'
+        }));
+
+        setTimeout(()=>history.push('/'),1000);
+    })
+    .catch((err)=>{
+        alert('sign up error');
+    })
 };
 // (user)=>{
 //     axios.post('',user)
@@ -19,7 +45,7 @@ export const axiosAdd = task => {
 export const axiosValidation = userToken => {
     setTimeout(null, 1000);
     console.log('successfully validated');
-    return true;
+    return false;
 };
 
 export const axiosSetTasks = userToken => {

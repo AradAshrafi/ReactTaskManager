@@ -3,6 +3,11 @@ import { history } from '../routers/AppRouter';
 import { axiosSignUp } from '../lib/server';
 
 export class SignUpPage extends React.Component {
+    constructor(props){
+        super(props);
+
+        axiosSignUp.bind(this);
+    }
     state = {
         error: undefined,
         errorText: undefined,
@@ -14,21 +19,21 @@ export class SignUpPage extends React.Component {
     };
 
     Register = e => {
-        let userToken;
+        // let userToken;
         e.preventDefault();
-        this.setState(() => ({
-            success: 'Successfully registered'
-        }));
+        
         const user = {
             name: this.state.name,
             email: this.state.email,
             phoneNum: this.state.phoneNum,
             password: this.state.passsword
         };
-        userToken=axiosSignUp();
-        localStorage.setItem('userToken', userToken);
-        console.log(localStorage.getItem('userToken'));
-        history.push('/');
+        axiosSignUp(user);
+
+       
+        // localStorage.setItem('userToken', userToken);
+        // console.log(localStorage.getItem('userToken'));
+        // history.push('/');
     };
 
     onNameChange = e => {
