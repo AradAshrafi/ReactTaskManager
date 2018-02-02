@@ -6,7 +6,7 @@ import SignUpPage from '../components/SignUpPage';
 import TasksDashboard from '../components/TasksDashboard';
 import NotFoundPage from '../components/NotFoundPage';
 import AddTask from '../components/AddTask';
-import { axiosValidation } from '../lib/server';
+import { axiosValidUser } from '../lib/server';
 
 export const history = createHistory();
 
@@ -20,7 +20,7 @@ class AppRouter extends React.Component {
         try {
             const userToken = localStorage.getItem('userToken');
             if (!!userToken) {
-                const isAuth = axiosValidation(userToken);
+                const isAuth = axiosValidUser(userToken);
                 console.log(isAuth);
                 this.setState(() => ({
                     userToken:userToken,

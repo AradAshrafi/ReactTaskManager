@@ -57,14 +57,23 @@ export const axiosAddTask = task => {
         history.push('/');
     })
     .catch(err => {
-        alert('log in error');
+        alert('addTask  error');
     });
 };
 
-export const axiosValidation = userToken => {
-    setTimeout(null, 1000);
-    console.log('successfully validated');
-    return false;
+export const axiosValidUser = userToken => {
+    axios
+    .post(`${server_domain}/v1/user/validate`, userToken)
+    .then(res => {
+        console.log('validation has checked');
+        const isAuth=res.body["isValid"];
+        history.push('/');
+        return isAuth;
+    })
+    .catch(err => {
+        alert('validation checking error');
+    });
+    
 };
 
 export const axiosSetTasks = userToken => {
