@@ -12,6 +12,7 @@ export const history = createHistory();
 
 class AppRouter extends React.Component {
     state = {
+        userToken:null,
         isAuth: false
     };
 
@@ -22,6 +23,7 @@ class AppRouter extends React.Component {
                 const isAuth = axiosValidation(userToken);
                 console.log(isAuth);
                 this.setState(() => ({
+                    userToken:userToken,
                     isAuth: isAuth
                 }));
                 if(!this.state.isAuth && history.location.pathname !== '/') //to avoid porbable infinite loops
@@ -38,26 +40,26 @@ class AppRouter extends React.Component {
                     <Route
                         path="/create"
                         render={routeProps => (
-                            <AddTask {...routeProps} isAuth={this.state.isAuth} />
+                            <AddTask {...routeProps} {...this.state} />
                         )}
                     />
                     <Route
                         path="/"
                         render={routeProps => (
-                            <TasksDashboard {...routeProps} isAuth={this.state.isAuth} />
+                            <TasksDashboard {...routeProps} {...this.state} />
                         )}
                         exact
                     />
                     <Route
                         path="/login"
                         render={routeProps => (
-                            <LoginPage {...routeProps} isAuth={this.state.isAuth} />
+                            <LoginPage {...routeProps} {...this.state} />
                         )}
                     />
                     <Route
                         path="/signup"
                         render={routeProps => (
-                            <SignUpPage {...routeProps} isAuth={this.state.isAuth} />
+                            <SignUpPage {...routeProps} {...this.state} />
                         )}
                     />
                     <Route component={NotFoundPage} />

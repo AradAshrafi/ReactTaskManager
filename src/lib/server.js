@@ -1,26 +1,62 @@
+import { server_domain } from './config';
+import {setTasks} from '../actions/tasks';
+
 export const JWT = '1234';
 
 export const axiosSignUp = () => {
-    setTimeout(null , 1000);
-    return "xxxx";
+    setTimeout(null, 1000);
+    return 'xxxx';
 };
 // (user)=>{
 //     axios.post('',user)
 // }
 
-
-export const axiosAdd = (task) =>{
-    setTimeout(null,1000)
+export const axiosAdd = task => {
+    setTimeout(null, 1000);
     console.log(' successfully added ');
-}
+};
 
-export const axiosValidation = (userToken) =>{
-    setTimeout(null,1000)
+export const axiosValidation = userToken => {
+    setTimeout(null, 1000);
     console.log('successfully validated');
     return true;
-}
+};
 
+export const axiosSetTasks = userToken => {
+    return (dispatch) => {
+            setTimeout(null, 1000);
+            return ()=>{
+            console.log('successfully set');
+            const tasks={
+                title : 'asdfasd',
+                description : 'asdf',
+                startDate : '12345',
+                endDate : '0',
+                status : '',
+                access : ''
+            }
+            dispatch(setTasks(tasks));
+        }
+    };
+};
 
+// export const startSetTasks = () => {
+//     return axios
+//         .get('/v1/user')
+//         .then(res => {
+//             let tasks=[];
+//             res.data.map(x => {
+//                 x=x.parse();
+//                 x.id=x._id;
+//                 delete x._id;
+//                 tasks.push(x);
+//             });
+//             dispatch(setTasks([...tasks]));
+//         })
+//         .catch(err => {
+//             console.log(err.error);
+//         });
+// };
 
 // export const axiosAddTask = (taskData = {}) => {
 //     // return (dispatch, getState) => {
@@ -48,5 +84,5 @@ export const axiosValidation = (userToken) =>{
 //             .catch(err=>{
 //                 alert('add task error');
 //             });
-    
+
 // };

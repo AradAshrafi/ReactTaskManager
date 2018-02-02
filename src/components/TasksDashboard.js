@@ -3,11 +3,11 @@ import Route from "react-router-dom";
 import TasksList from "./Taskslist";
 import {Link} from "react-router-dom";
 import Header from '../components/Header';
-
+import {axiosSetTasks} from '../lib/server';
 
 export const TasksDashboard =(props)=>{
     console.log(props)
-    //setTasks (update redux)
+    axiosSetTasks (props.userToken);
     return (
         <div>
             <Header isAuth={props.isAuth} isDashboard={true} />
@@ -18,8 +18,14 @@ export const TasksDashboard =(props)=>{
                 <Link to='/login'>Add task</Link>                
                 }
             </div>
-            <TasksList />
+            <TasksList tasks={props.tasks} />
         </div>
     );
 };
+
+// const mapStateToProps= (state)=>({
+//     tasks:state.tasks
+// })
+// export default connect(mapStateToProps)(TasksDashboard);
+
 export default TasksDashboard;
