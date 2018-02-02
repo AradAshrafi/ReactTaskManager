@@ -1,12 +1,12 @@
 import React from "react";
 import TaskForm from "./TaskForm";
-// import Header from '../components/Header';
+import Header from '../components/Header';
 
 export default class AddTask extends React.Component{
     render(){
       return (
         <div>
-            {/*<Header />*/}
+            <Header isAuth={this.props.isAuth} />
             <div>
                 <h1>Add Task</h1>
             </div>

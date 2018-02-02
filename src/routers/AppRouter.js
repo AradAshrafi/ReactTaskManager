@@ -19,12 +19,13 @@ class AppRouter extends React.Component {
         try {
             const userToken = localStorage.getItem('userToken');
             if (!!userToken) {
-                let isAuth = axiosValidation(userToken);
+                const isAuth = axiosValidation(userToken);
                 console.log(isAuth);
                 this.setState(() => ({
                     isAuth: isAuth
                 }));
-                // then && catch (push(/dashboard))
+                if(!this.state.isAuth && history.location.pathname !== '/') //to avoid porbable infinite loops
+                    history.push('/')
             }
         } catch (e) {
             console.log(e);

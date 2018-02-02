@@ -2,7 +2,7 @@ import React from "react";
 import Route from "react-router-dom";
 import TasksList from "./Taskslist";
 import {Link} from "react-router-dom";
-// import Header from '../components/Header';
+import Header from '../components/Header';
 
 
 export const TasksDashboard =(props)=>{
@@ -10,7 +10,7 @@ export const TasksDashboard =(props)=>{
     //setTasks (update redux)
     return (
         <div>
-            {/*<Header />*/}
+            <Header isAuth={props.isAuth} isDashboard={true} />
             <div>
                 {(!!props.isAuth) ?
                 <Link to='/create'>Add task</Link>
