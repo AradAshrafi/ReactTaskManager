@@ -37,7 +37,7 @@ export const axiosSignUp = user => {
 
 export const axiosLogIn = ({ email, password }) => {
     axios
-        .post(`${server_domain}/v1/user/login`, {email,password})
+        .post(`${server_domain}/v1/user/login`, { email, password })
         .then(res => {
             const userToken = res.body['token'];
             localStorage.setItem('userToken', userToken);
@@ -51,66 +51,72 @@ export const axiosLogIn = ({ email, password }) => {
 
 export const axiosAddTask = task => {
     axios
-    .post(`${server_domain}/v1/user/create`, task)
-    .then(res => {
-        console.log('task successfully added ');
-        history.push('/');
-    })
-    .catch(err => {
-        alert('addTask  error');
-    });
+        .post(`${server_domain}/v1/user/create`, task)
+        .then(res => {
+            console.log('task successfully added ');
+            history.push('/');
+        })
+        .catch(err => {
+            alert('addTask  error');
+        });
 };
 
 export const axiosValidUser = userToken => {
     axios
-    .post(`${server_domain}/v1/user/validate`, userToken)
-    .then(res => {
-        console.log('validation has checked');
-        const isAuth=res.body["isValid"];
-        history.push('/');
-        return isAuth;
-    })
-    .catch(err => {
-        alert('validation checking error');
-    });
-    
+        .post(`${server_domain}/v1/user/validate`, userToken)
+        .then(res => {
+            console.log('validation has checked');
+            const isAuth = res.body['isValid'];
+            history.push('/');
+            return isAuth;
+        })
+        .catch(err => {
+            alert('validation checking error');
+        });
 };
 
-export const axiosSetTasks = userToken => {
+export const axiosSetTasksPublicUser = () => {
     return dispatch => {
-        setTimeout(null, 1000);
-        return () => {
-            console.log('successfully set');
-            const tasks = {
-                title: 'asdfasd',
-                description: 'asdf',
-                startDate: '12345',
-                endDate: '0',
-                status: '',
-                access: ''
-            };
-            dispatch(setTasks(tasks));
-        };
+        return axios
+            .get('/v1/user/task/showpublic')
+            .then(res => {
+                let tasks = [];
+                res.body.tasks.map(x => {
+                    x = x.parse();
+                    x.id = x._id;
+                    delete x._id;
+                    tasks.push(x);
+                });
+                dispatch(setTasks([...tasks]));
+                console.log("tasks successfully set");
+            })
+            .catch(err => {
+                console.log('show public error : ', err.error);
+            });
     };
 };
 
-// export const startSetTasks = () => {
-//     return axios
-//         .get('/v1/user')
-//         .then(res => {
-//             let tasks=[];
-//             res.data.map(x => {
-//                 x=x.parse();
-//                 x.id=x._id;
-//                 delete x._id;
-//                 tasks.push(x);
-//             });
-//             dispatch(setTasks([...tasks]));
-//         })
-//         .catch(err => {
-//             console.log(err.error);
-//         });
-// };
+export const axiosSetTasksPrivateUser = userToken => {
+    return dispatch => {
+        return axios
+            .post('/v1/user/task/show',userToken)
+            .then(res => {
+                let tasks = [];
+                res.body.tasks.map(x => {
+                    x = x.parse();
+                    x.id = x._id;
+                    delete x._id;
+                    tasks.push(x);
+                });
+                dispatch(setTasks([...tasks]));
+                console.log('tasks successfully set');
+            })
+            .catch(err => {
+                console.log('show private error' , err.error);
+            });
+    };
+};
+
 
 // export const axiosAddTaskTask = (taskData = {}) => {
 //     // return (dispatch, getState) => {

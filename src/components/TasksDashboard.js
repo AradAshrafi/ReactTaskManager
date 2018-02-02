@@ -3,11 +3,11 @@ import Route from "react-router-dom";
 import TasksList from "./Taskslist";
 import {Link} from "react-router-dom";
 import Header from '../components/Header';
-import {axiosSetTasks} from '../lib/server';
+import {axiosSetTasksPublicUser,axiosSetTasksPrivateUser} from '../lib/server';
 
 export const TasksDashboard =(props)=>{
     console.log(props)
-    axiosSetTasks (props.userToken);
+    props.isAuth ? axiosSetTasksPublicUser() : (axiosSetTasksPrivateUser(props.userToken),axiosSetTasksPublicUser());
     return (
         <div>
             <Header isAuth={props.isAuth} isDashboard={true} />
