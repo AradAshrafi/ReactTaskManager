@@ -34,7 +34,7 @@ export default class LoginPage extends React.Component {
                 </form>
                 <div>
                     <p>Don't have an account?</p>
-                    <Link to="/v1/signup">Sign up</Link>
+                    <Link to="/signup">Sign up</Link>
                 </div>
             </div>
         );
