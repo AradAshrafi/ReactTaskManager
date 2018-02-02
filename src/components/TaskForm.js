@@ -3,7 +3,7 @@ import { DateRangePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import { history } from '../routers/AppRouter';
 import moment from 'moment';
-import {axiosAdd} from '../lib/server';
+import {axiosAddTask} from '../lib/server';
 
 export default class TaskForm extends React.Component {
     constructor(props) {
@@ -31,7 +31,7 @@ export default class TaskForm extends React.Component {
         //     access:this.state.access
         // });
         e.preventDefault();
-        axiosAdd({
+        axiosAddTask({
             title: this.state.title,
             description: this.state.description,
             startDate: this.state.startDate,
@@ -39,7 +39,6 @@ export default class TaskForm extends React.Component {
             status: this.state.status,
             access: this.state.access
         });
-        history.push('/');
     };
 
     onTitleChange = e => {

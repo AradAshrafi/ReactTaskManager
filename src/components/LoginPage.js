@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {JWT} from '../lib/server';
+// import { fakeJWT} from '../lib/server';
 import { history } from '../routers/AppRouter';
-
+import { axiosLogIn } from '../lib/server';
 
 export default class LoginPage extends React.Component {
     state = {
@@ -14,10 +14,8 @@ export default class LoginPage extends React.Component {
         e.preventDefault();
         const email = e.target.elements.email.value;
         const password = e.target.elements.password.value;
-        setTimeout(userToken=JWT,1000);
-        localStorage.setItem('userToken',userToken);
-        console.log(localStorage.getItem('userToken'));
-        history.push('/');
+        axiosLogIn({email,password});
+        
     };
     render() {
         return (

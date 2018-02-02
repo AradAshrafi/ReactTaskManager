@@ -1,5 +1,5 @@
 import { server_domain } from './config';
-import {setTasks} from '../actions/tasks';
+import { setTasks } from '../actions/tasks';
 import axios from 'axios';
 import {
     AxiosProvider,
@@ -13,33 +13,52 @@ import {
     withAxios
 } from 'react-axios';
 
-export const JWT = '1234';
+// export const fakeJWT = '1234';
 
-export const axiosSignUp = (user) => {
-    axios.post(`${server_domain}/v1/user/signup`,user)
-    .then((res)=>{
-        const userToken = res.body["token"];
-        clocalStorage.setItem('userToken', userToken);
-        console.log(localStorage.getItem('userToken'));
+export const axiosSignUp = user => {
+    axios
+        .post(`${server_domain}/v1/user/signup`, user)
+        .then(res => {
+            const userToken = res.body['token'];
+            localStorage.setItem('userToken', userToken);
+            console.log(localStorage.getItem('userToken'));
 
-        //axiosSignUp's this is bind to signUpPage
-        this.setState(() => ({
-            success: 'Successfully registered'
-        }));
+            //axiosSignUp's this is bind to signUpPage
+            this.setState(() => ({
+                success: 'Successfully registered'
+            }));
 
-        setTimeout(()=>history.push('/'),1000);
-    })
-    .catch((err)=>{
-        alert('sign up error');
-    })
+            setTimeout(() => history.push('/'), 1000);
+        })
+        .catch(err => {
+            alert('sign up error');
+        });
 };
-// (user)=>{
-//     axios.post('',user)
-// }
 
-export const axiosAdd = task => {
-    setTimeout(null, 1000);
-    console.log(' successfully added ');
+export const axiosLogIn = ({ email, password }) => {
+    axios
+        .post(`${server_domain}/v1/user/login`, {email,password})
+        .then(res => {
+            const userToken = res.body['token'];
+            localStorage.setItem('userToken', userToken);
+            console.log(localStorage.getItem('userToken'));
+            history.push('/');
+        })
+        .catch(err => {
+            alert('log in error');
+        });
+};
+
+export const axiosAddTask = task => {
+    axios
+    .post(`${server_domain}/v1/user/create`, task)
+    .then(res => {
+        console.log('task successfully added ');
+        history.push('/');
+    })
+    .catch(err => {
+        alert('log in error');
+    });
 };
 
 export const axiosValidation = userToken => {
@@ -49,20 +68,20 @@ export const axiosValidation = userToken => {
 };
 
 export const axiosSetTasks = userToken => {
-    return (dispatch) => {
-            setTimeout(null, 1000);
-            return ()=>{
+    return dispatch => {
+        setTimeout(null, 1000);
+        return () => {
             console.log('successfully set');
-            const tasks={
-                title : 'asdfasd',
-                description : 'asdf',
-                startDate : '12345',
-                endDate : '0',
-                status : '',
-                access : ''
-            }
+            const tasks = {
+                title: 'asdfasd',
+                description: 'asdf',
+                startDate: '12345',
+                endDate: '0',
+                status: '',
+                access: ''
+            };
             dispatch(setTasks(tasks));
-        }
+        };
     };
 };
 
@@ -84,7 +103,7 @@ export const axiosSetTasks = userToken => {
 //         });
 // };
 
-// export const axiosAddTask = (taskData = {}) => {
+// export const axiosAddTaskTask = (taskData = {}) => {
 //     // return (dispatch, getState) => {
 //         const {
 //             title = '',

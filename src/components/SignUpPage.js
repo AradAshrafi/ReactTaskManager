@@ -14,7 +14,7 @@ export class SignUpPage extends React.Component {
         success: undefined,
         name: '',
         email: '',
-        phoneNum: '',
+        phoneNumber: '',
         password: undefined
     };
 
@@ -25,7 +25,7 @@ export class SignUpPage extends React.Component {
         const user = {
             name: this.state.name,
             email: this.state.email,
-            phoneNum: this.state.phoneNum,
+            phoneNumber: this.state.phoneNumber,
             password: this.state.passsword
         };
         axiosSignUp(user);
@@ -47,8 +47,8 @@ export class SignUpPage extends React.Component {
     };
 
     onPhoneChange = e => {
-        const phoneNum = e.target.value;
-        this.setState(() => ({ phoneNum }));
+        const phoneNumber = e.target.value;
+        this.setState(() => ({ phoneNumber }));
     };
 
     onPassChange = e => {
@@ -87,7 +87,7 @@ export class SignUpPage extends React.Component {
                     <div className="input-group2">
                         <label>Phone number</label>
                         <input
-                            value={this.state.phoneNum}
+                            value={this.state.phoneNumber}
                             onChange={this.onPhoneChange}
                             required={true}
                         />
