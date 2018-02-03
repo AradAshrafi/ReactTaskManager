@@ -11,14 +11,14 @@ export const TasksDashboard =(props)=>{
     return (
         <div>
             <Header isAuth={props.isAuth} isDashboard={true} />
-            <div>
+            <TasksList tasks={props.tasks} />            
+            <div className="content-container">
                 {(!!props.isAuth) ?
                 <Link to='/create'>Add task</Link>
                 :
                 <Link to='/login'>Add task</Link>                
                 }
             </div>
-            <TasksList tasks={props.tasks} />
         </div>
     );
 };
