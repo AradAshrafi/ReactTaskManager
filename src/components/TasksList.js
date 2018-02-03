@@ -4,15 +4,15 @@ import { connect } from 'react-redux';
 
 export const TasksList = ({tasks}) => {
     return (
-        <div>
-            <div>
+        <div className="content-container">
+            <div  className="list-header">
                 <div>Task</div>
                 {/*for styling*/}
                 <div>Date</div>
             </div>
-            <div>
+            <div className="list-body">
                 {tasks.length === 0 ? (
-                    <div>
+                    <div className="list-item">
                         <p>No Tasks </p>
                     </div>
                 ) : (
