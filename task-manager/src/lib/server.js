@@ -93,10 +93,7 @@ export const axiosValidUser = userToken => {
 export const axiosSetTasksPublicUser = () => {
     return dispatch => {
         return axios
-            .get(
-                `${server_domain}/v1/user/task/showpublic`,
-                { headers: { Authorization: 'Bearer ' + userToken } }
-            )
+            .get(`${server_domain}/v1/user/task/showpublic`)
             .then(res => {
                 let tasks = [];
                 res.req.tasks.map(x => {
