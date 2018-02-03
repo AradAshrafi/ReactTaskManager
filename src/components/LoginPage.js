@@ -19,20 +19,22 @@ export default class LoginPage extends React.Component {
     };
     render() {
         return (
-            <div>
-                <h1>Login </h1>
-                {this.state.error.length != 0 ? <p>{this.state.error}</p> : ''}
-                <form onSubmit={this.onFormSubmit}>
-                    <input
-                        name="email"
-                        placeholder="enter your email or phone number"
-                    />
-                    <input name="password" placeholder="enter password" />
-                    <button>Login</button>
-                </form>
-                <div>
-                    <p>Don't have an account?</p>
-                    <Link to="/signup">Sign up</Link>
+            <div className="box-layout">
+                <div classname="box-layout__box">
+                    <h1>Login </h1>
+                    {this.state.error.length != 0 ? <p>{this.state.error}</p> : ''}
+                    <form className="box-layout__form" onSubmit={this.onFormSubmit}>
+                        <input
+                            name="email"
+                            placeholder="enter your email or phone number"
+                        />
+                        <input name="password" placeholder="enter password" />
+                        <button className="button">Login</button>
+                    </form>
+                    <div>
+                        <p>Don't have an account?</p>
+                        <Link to="/signup">Sign up</Link>
+                    </div>
                 </div>
             </div>
         );

@@ -1,0 +1,16 @@
+.box-layout{
+    background: url("https://catinean.com/content/images/2016/03/time-wallpaper-23.jpg");
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.box-layout__box{
+    background:fade-out(white,0.15);
+    width:40rem;
+    text-align:center;
+    display: flex;
+    align-items: center;
+}
