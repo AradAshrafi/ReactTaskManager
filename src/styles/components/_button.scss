@@ -18,10 +18,14 @@
 }
 .link{
     text-decoration: none;
-    color:black
+    color:$blue;
 }
 .button--cover{
     height:100%;
     width: 100%;
     text-align: center;
+}
+
+.button--circle{
+    border-radius:15px;
 }

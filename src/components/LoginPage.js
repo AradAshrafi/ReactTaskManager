@@ -28,19 +28,19 @@ export default class LoginPage extends React.Component {
                             <input
                                 name="email"
                                 placeholder="enter your email"
-                                className="text-input"
+                                className="text-input text-input--group1"
                             />
                             <input 
                                 name="password"
                                 placeholder="enter password" 
-                                className="text-input"
+                                className="text-input text-input--group1"
                                 />
                         </div>
-                        <button className="button">Login</button>
+                        <button className="button button--circle">Login</button>
                     </form>
                     <div>
                         <p className="box-layout__title">Don't have an account?</p>
-                        <Link className="button--link" to="/signup">Sign up</Link>
+                        <Link className="button--link link" to="/signup">Sign up</Link>
                     </div>
                 </div>
             </div>

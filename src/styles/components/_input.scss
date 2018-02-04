@@ -5,6 +5,10 @@
     font-size: $font-size-large;
     padding: $s-size;
 }
+.text-input--group1{
+    margin:0 $m-size $s-size;
+    border-radius: 15px;
+}
 .select {
     @extend .text-input;
     height: 45px;
