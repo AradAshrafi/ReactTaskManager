@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import { history } from '../routers/AppRouter';
 
 export const Header = props => (
-    <div>
-        <Link className="link" to="/">Task Manager </Link>
+    <div className="header">
+    <div className="content-container">
+    <div className="header__content">
+        <Link className="link header header__title" to="/">Task Manager </Link>
         {props.isAuth ? (
             <button className="button">Log Out</button> //handle onClick to LogOut
         ) : (
@@ -15,6 +17,8 @@ export const Header = props => (
                 </div>
             )
         )}
+        </div>
+        </div>
     </div> //handle Style
 );
 
