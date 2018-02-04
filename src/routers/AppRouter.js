@@ -24,10 +24,12 @@ class AppRouter extends React.Component {
                 console.log(isAuth);
                 this.setState(() => ({
                     userToken:userToken,
-                    isAuth: 1
+                    isAuth: 0
                 }));
-                if(!this.state.isAuth && history.location.pathname !== '/') //to avoid porbable infinite loops
+                if(!this.state.isAuth && (history.location.pathname !== '/' || history.location.pathname !== '/login' || history.location.pathname !== '/signup')) //to avoid porbable infinite loops
                     history.push('/')
+                if(this.state.isAuth && (history.location.pathname === '/login' || history.location.pathname === '/signup')) //to avoid porbable infinite loops
+                    history.push('/');
             }
         } catch (e) {
             console.log(e);
