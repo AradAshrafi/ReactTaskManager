@@ -78,8 +78,8 @@ export default class TaskForm extends React.Component {
 
     render() {
         return (
-            <form onSubmit={this.onSubmit} >
-                <div >
+            <form onSubmit={this.onSubmit} className="input-group">
+                <div className="input-group__item">
                     <input
                         className="text-input"
                         placeholder="title"
@@ -87,6 +87,8 @@ export default class TaskForm extends React.Component {
                         value={this.state.title}
                         onChange={this.onTitleChange}
                     />
+                </div>
+                <div className="input-group__item">
                     <input
                         className="text-input"
                         placeholder="description"
@@ -94,35 +96,41 @@ export default class TaskForm extends React.Component {
                         value={this.state.description}
                         onChange={this.onDescriptionChange}
                     />
-                    <DateRangePicker
-                        startDate={this.state.startDate}
-                        endDate={this.state.endDate}
-                        onDatesChange={this.onDatesChange}
-                        focusedInput={this.state.calendarFocused}
-                        onFocusChange={this.onFocusChange}
-                        numberOfMonths={1}
-                        isOutsideRange={() => false}
-                        showClearDates={true}
-                    />
                 </div>
-                <select
-                    className="select"
-                    value={this.state.status}
-                    onChange={this.onStatusChange}
-                >
-                    <option value="TODO">Todo</option>
-                    <option value="DOING">Doing</option>
-                    <option value="DONE">Done</option>
-                </select>
-                <select
-                    className="select"
-                    value={this.state.access}
-                    onChange={this.onAccessChange}
-                >
-                    <option value={false}>Private</option>
-                    <option value={true}>access</option>
-                </select>
-                <div>
+                <div className="input-group__item">
+                <DateRangePicker
+                    startDate={this.state.startDate}
+                    endDate={this.state.endDate}
+                    onDatesChange={this.onDatesChange}
+                    focusedInput={this.state.calendarFocused}
+                    onFocusChange={this.onFocusChange}
+                    numberOfMonths={1}
+                    isOutsideRange={() => false}
+                    showClearDates={true}
+                />
+                </div>
+                <div className="input-group__item">
+                    <select
+                        className="select"
+                        value={this.state.status}
+                        onChange={this.onStatusChange}
+                    >
+                        <option value="TODO">Todo</option>
+                        <option value="DOING">Doing</option>
+                        <option value="DONE">Done</option>
+                    </select>
+                </div>
+                <div className="input-group__item">
+                    <select
+                        className="select"
+                        value={this.state.access}
+                        onChange={this.onAccessChange}
+                    >
+                        <option value={false}>Private</option>
+                        <option value={true}>access</option>
+                    </select>
+                </div>
+                <div className="input-group__item">
                     <button className="button">Save Task</button>
                 </div>
             </form>
