@@ -24,7 +24,7 @@ class AppRouter extends React.Component {
                 console.log(isAuth);
                 this.setState(() => ({
                     userToken:userToken,
-                    isAuth: isAuth
+                    isAuth: 1
                 }));
                 if(!this.state.isAuth && history.location.pathname !== '/') //to avoid porbable infinite loops
                     history.push('/')

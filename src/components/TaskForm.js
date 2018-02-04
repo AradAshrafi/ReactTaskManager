@@ -3,7 +3,7 @@ import { DateRangePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import { history } from '../routers/AppRouter';
 import moment from 'moment';
-import {axiosAddTask} from '../lib/server';
+import { axiosAddTask } from '../lib/server';
 
 export default class TaskForm extends React.Component {
     constructor(props) {
@@ -78,20 +78,22 @@ export default class TaskForm extends React.Component {
 
     render() {
         return (
-            <form onSubmit={this.onSubmit}>
-                <input
-                    placeholder="title"
-                    type="text"
-                    value={this.state.title}
-                    onChange={this.onTitleChange}
-                />
-                <input
-                    placeholder="description"
-                    type="text"
-                    value={this.state.description}
-                    onChange={this.onDescriptionChange}
-                />
-                <div>
+            <form onSubmit={this.onSubmit} >
+                <div >
+                    <input
+                        className="text-input"
+                        placeholder="title"
+                        type="text"
+                        value={this.state.title}
+                        onChange={this.onTitleChange}
+                    />
+                    <input
+                        className="text-input"
+                        placeholder="description"
+                        type="text"
+                        value={this.state.description}
+                        onChange={this.onDescriptionChange}
+                    />
                     <DateRangePicker
                         startDate={this.state.startDate}
                         endDate={this.state.endDate}
@@ -104,6 +106,7 @@ export default class TaskForm extends React.Component {
                     />
                 </div>
                 <select
+                    className="select"
                     value={this.state.status}
                     onChange={this.onStatusChange}
                 >
@@ -112,6 +115,7 @@ export default class TaskForm extends React.Component {
                     <option value="DONE">Done</option>
                 </select>
                 <select
+                    className="select"
                     value={this.state.access}
                     onChange={this.onAccessChange}
                 >

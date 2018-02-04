@@ -1,20 +1,21 @@
-import React from "react";
-import TaskForm from "./TaskForm";
+import React from 'react';
+import TaskForm from './TaskForm';
 import Header from '../components/Header';
 
-export default class AddTask extends React.Component{
-    render(){
-      return (
-        <div>
-            <Header isAuth={this.props.isAuth} />
+export default class AddTask extends React.Component {
+    render() {
+        return (
             <div>
-                <h1>Add Task</h1>
+                <Header isAuth={this.props.isAuth} />
+                <div className="content-container">
+                    <div>
+                        <h1>Add Task</h1>
+                    </div>
+                    <div>
+                        <TaskForm />
+                    </div>
+                </div>
             </div>
-            <div>
-                <TaskForm/>
-            </div>
-        </div>
-      );
+        );
     }
 }
-
