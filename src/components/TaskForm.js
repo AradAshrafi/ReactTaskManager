@@ -123,7 +123,7 @@ export default class TaskForm extends React.Component {
                     </div>
                 </div>
                 <div className="input-group">
-                    <div classNameclassName="input-group__item">
+                    <div className="input-group__item">
                         <DateRangePicker
                             startDate={this.state.startDate}
                             endDate={this.state.endDate}
