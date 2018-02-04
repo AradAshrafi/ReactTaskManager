@@ -12,25 +12,25 @@ export const history = createHistory();
 
 class AppRouter extends React.Component {
     state = {
-        userToken:null,
+        userToken: null,
         isAuth: false
     };
 
     componentWillMount() {
         try {
             const userToken = localStorage.getItem('userToken');
-            if (!!userToken) {
-                const isAuth = axiosValidUser(userToken);
-                console.log(isAuth);
-                this.setState(() => ({
-                    userToken:userToken,
-                    isAuth: 0
-                }));
-                if(!this.state.isAuth && (history.location.pathname !== '/' || history.location.pathname !== '/login' || history.location.pathname !== '/signup')) //to avoid porbable infinite loops
-                    history.push('/')
-                if(this.state.isAuth && (history.location.pathname === '/login' || history.location.pathname === '/signup')) //to avoid porbable infinite loops
-                    history.push('/');
-            }
+            const isAuth = axiosValidUser(userToken);
+            console.log(isAuth);
+            this.setState(() => ({
+                userToken: userToken,
+                isAuth: 0
+            }));
+            if ( !this.state.isAuth &&(history.location.pathname !== '/' || history.location.pathname !== '/login' || history.location.pathname !== '/signup'))
+                //to avoid porbable infinite loops
+                history.push('/');
+            if (this.state.isAuth && (history.location.pathname === '/login' || history.location.pathname === '/signup'))
+                //to avoid porbable infinite loops
+                history.push('/');
         } catch (e) {
             console.log(e);
         }
