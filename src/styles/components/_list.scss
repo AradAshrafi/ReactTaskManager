@@ -3,7 +3,7 @@
     justify-content: space-between;
     padding:$s-size $m-size;
     color:$grey;
-    background-color:lighten(blue,40%);
+    background-color:lighten($grey,40%);
     border:1px solid darken($off-white,7%);
 }
 .list-body{

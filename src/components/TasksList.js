@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 export const TasksList = ({tasks}) => {
     return (
-        <div className="content-container">
+        <div className="content-container content-container--tasksList">
             <div  className="list-header">
                 <div>Task</div>
                 {/*for styling*/}

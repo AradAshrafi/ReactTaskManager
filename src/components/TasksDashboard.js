@@ -14,9 +14,9 @@ export const TasksDashboard =(props)=>{
             <TasksList tasks={props.tasks} />            
             <div className="content-container">
                 {(!!props.isAuth) ?
-                <Link to='/create' className="button button--link">Add task</Link>
+                <Link to='/create' className="button button--link button--cover">Add task</Link>
                 :
-                <Link to='/login' className="button button--link">Add task</Link>                
+                <Link to='/login' className="button button--link button--cover">Add task</Link>                
                 }
             </div>
         </div>
