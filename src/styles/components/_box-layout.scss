@@ -1,5 +1,5 @@
 .box-layout{
-    background: url("https://catinean.com/content/images/2016/03/time-wallpaper-23.jpg");
+    background: url("https://buidln.clipdealer.com/003/999/483//previews/1--3999483-Beautiful%20Water%20surface.%20Water%20fills%20the%20screen.%20HD%201080..jpg");
     background-size: cover;
     height: 100vh;
     width: 100vw;
@@ -8,7 +8,8 @@
     align-items: center;
 }
 .box-layout__box{
-    background:fade-out(white,0.15);
+    // background:fade-out(white,0.15);
+    flex-direction: column;
     width:40rem;
     text-align:center;
     display: flex;
@@ -16,7 +17,12 @@
 }
 .box-layout__form{
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    
+    margin-bottom: $m-size
+}
+.box-layout__title{
+    margin: 0 0 $m-size 0;
+    line-height: 1;
 }
