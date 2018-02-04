@@ -14,13 +14,13 @@ export const Header = props => (
                 ) : (
                     props.isDashboard && (
                         <div>
-                            <Link className="button button--link" to="/login">
+                            <Link className="button button--link header--button" to="/login">
                                 Log In
                             </Link>
                             <Link className="button button--link" to="/signup">
                                 Sign Up
                             </Link>
-                        </div>
+                        </div>//i dont use header--button twice because one margin is enough
                     )
                 )}
             </div>
