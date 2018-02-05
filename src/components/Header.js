@@ -12,21 +12,21 @@ export const Header = props => (
                 {props.isAuth ? (
                     <button className="button">Log Out</button> //handle onClick to LogOut
                 ) : (
-                    props.isDashboard && (
-                        <div>
-                            <Link className="button button--link header--button" to="/login">
-                                Log In
-                            </Link>
-                            <Link className="button button--link" to="/signup">
-                                Sign Up
-                            </Link>
-                        </div>//i dont use header--button twice because one margin is enough
-                    )
+                    <div>
+                        <Link
+                            className="button button--link header--button"
+                            to="/login"
+                        >
+                            Log In
+                        </Link>
+                        <Link className="button button--link" to="/signup">
+                            Sign Up
+                        </Link>
+                    </div> //i dont use header--button twice because one margin is enough
                 )}
             </div>
         </div>
     </div> //handle Style
 );
-
 
 export default Header;

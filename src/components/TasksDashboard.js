@@ -10,10 +10,9 @@ export const TasksDashboard =(props)=>{
     !props.isAuth ? axiosSetTasksPublicUser() : (axiosSetTasksPrivateUser(props.userToken),axiosSetTasksPublicUser());
     return (
         <div>
-            <Header isAuth={props.isAuth} isDashboard={true} />
             <TasksList tasks={props.tasks} />            
             <div className="content-container">
-                {(!!props.isAuth) ?
+                {(props.isAuth) ?
                 <Link to='/create' className="button button--link button--cover">Add task</Link>
                 :
                 <Link to='/login' className="button button--link button--cover">Add task</Link>                

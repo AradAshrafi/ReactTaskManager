@@ -6,7 +6,6 @@ export default class AddTask extends React.Component {
     render() {
         return (
             <div>
-                <Header isAuth={this.props.isAuth} />
                 <div className="content-container">
                     <div>
                         <h1>Add Task</h1>
