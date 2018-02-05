@@ -22,8 +22,10 @@ class AppRouter extends React.Component {
             const isAuth = axiosValidUser(userToken);
             this.setState(({
                 userToken: userToken,
-                isAuth: 0
-            }),()=>{if ( (!(this.state.isAuth)) &&(!(history.location.pathname === '/' || history.location.pathname === '/login' || history.location.pathname === '/signup'))){
+                isAuth: false /////??????
+            }),()=>{
+                if(history.location.pathname === '/'||history.location.pathname === '/login'||history.location.pathname === '/create'||history.location.pathname === '/signup'){
+                if ( (!(this.state.isAuth)) &&(!(history.location.pathname === '/' || history.location.pathname === '/login' || history.location.pathname === '/signup'))){
                 //to avoid porbable infinite loops
                 history.push('/');
             }
@@ -33,8 +35,7 @@ class AppRouter extends React.Component {
                 //to avoid porbable infinite loops
                 history.push('/');
                
-            }});
-            
+            }}});
             
         } catch (e) {
             console.log(e);

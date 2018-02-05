@@ -12,17 +12,16 @@ import {
     Patch,
     withAxios
 } from 'react-axios';
-
+import {history} from  "../routers/AppRouter"; ///////?????
 // export const fakeJWT = '1234';
 
 export const axiosSignUp = user => {
     axios
-        .post(`${server_domain}/v1/user/signup`, {
-            body: user,
+        .post(`${server_domain}/v1/user/signup`,user, {
             headers: { 'content-type': 'application/json' }
         })
         .then(res => {
-            const userToken = res.req['token'];
+            const userToken = res.data.token;   ////////????
             localStorage.setItem('userToken', userToken);
             console.log(localStorage.getItem('userToken'));
 
@@ -30,7 +29,7 @@ export const axiosSignUp = user => {
             this.setState(() => ({
                 success: 'Successfully registered'
             }));
-
+            console.log(this.state.success) ////////????
             setTimeout(() => history.push('/'), 1000);
         })
         .catch(err => {
