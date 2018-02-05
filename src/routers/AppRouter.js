@@ -25,11 +25,11 @@ class AppRouter extends React.Component {
             this.setState({
                 userToken: userToken,
                 isAuth: a /////??????
-            }),
-                () => {
-                    console.log(history.location.pathname);
-                    console.log('isAuth is : ', this.state.isAuth);
-                };
+            },
+            () => {
+                console.log(history.location.pathname);
+                console.log('isAuth is : ', this.state.isAuth);
+            })
         });
     }
 

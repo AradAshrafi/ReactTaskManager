@@ -46,7 +46,7 @@ export const axiosLogIn = ({ email, password }) => {
             },
         )
         .then(res => {
-            const userToken = res.req['token'];
+            const userToken = res.data.token;
             localStorage.setItem('userToken', userToken);
             console.log(localStorage.getItem('userToken'));
             history.push('/');
@@ -103,7 +103,7 @@ export const axiosSetTasksPublicUser = () => {
             .then(res => {
                 let tasks = [];
                 res.data.map(x => {
-                    x = x.parse();
+                    console.log(x);
                     x.id = x._id;
                     delete x._id;
                     tasks.push(x);
@@ -126,7 +126,7 @@ export const axiosSetTasksPrivateUser = userToken => {
             .then(res => {
                 let tasks = [];
                 res.data.map(x => {
-                    x = x.parse();
+                    console.log(x);
                     x.id = x._id;
                     delete x._id;
                     tasks.push(x);
