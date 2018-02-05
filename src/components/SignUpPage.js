@@ -7,7 +7,7 @@ export class SignUpPage extends React.Component {
     constructor(props) {
         super(props);
 
-        axiosSignUp.bind(this);
+        // axiosSignUp.bind(this);
     }
     state = {
         error: undefined,

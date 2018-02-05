@@ -25,14 +25,15 @@ export const axiosSignUp = user => {
             localStorage.setItem('userToken', userToken);
             console.log(localStorage.getItem('userToken'));
 
-            //axiosSignUp's this is bind to signUpPage
+            // axiosSignUp's this is bind to signUpPage
             // this.setState(() => ({
-            //     success: 'Successfully registered'
+            //     success: 'Successful ly registered'
             // }));
-            // console.log(this.state.success) ////////???? ////////////// bind nashodeee   
+            // console.log(this.state.success)////////???? ////////////// bind nashodeee   
             setTimeout(() => history.push('/'), 1000);
         })
         .catch(err => {
+            // console.log(err);
             alert('sign up error');
         });
 };
@@ -56,6 +57,7 @@ export const axiosLogIn = ({ email, password }) => {
 };
 
 export const axiosAddTask = task => {
+    const userToken=localStorage.getItem('userToken');
     axios
         .post(`${server_domain}/v1/user/task/create`,task ,{
             headers: { 'Authorization': "bearer "+userToken }
@@ -69,16 +71,20 @@ export const axiosAddTask = task => {
         });
 };
 
-export const axiosValidUser = userToken => {
+export const axiosValidUser = (userToken,callback) => {
     axios
-        .post(`${server_domain}/v1/user/validate`, {
+        .get(`${server_domain}/v1/user/validate`, {
             headers: { 'Authorization': "bearer "+userToken }
         })
         .then(res => {
             console.log('validation has checked');
-            const isAuth = res.req['isValid'];
+            console.log("isAuth checking in axiosValida");
+            const isAuth = res.data['isValid'];
+            console.log("isAuth in axios",isAuth);
             history.push('/');
-            return isAuth;
+            callback(isAuth);
+            
+            
         })
         .catch(err => {
             alert('validation checking error');
@@ -89,12 +95,11 @@ export const axiosSetTasksPublicUser = () => {
     return dispatch => {
         return axios
             .get(
-                `${server_domain}/v1/user/task/showpublic`,
-                { headers: { Authorization: 'Bearer ' + userToken } }
+                `${server_domain}/v1/user/task/showpublic`
             )
             .then(res => {
                 let tasks = [];
-                res.req.tasks.map(x => {
+                res.data.map(x => {
                     x = x.parse();
                     x.id = x._id;
                     delete x._id;
@@ -104,7 +109,7 @@ export const axiosSetTasksPublicUser = () => {
                 console.log('tasks successfully set');
             })
             .catch(err => {
-                console.log('show public error : ', err.error);
+                console.log('show public error : ', err);
             });
     };
 };
@@ -117,7 +122,7 @@ export const axiosSetTasksPrivateUser = userToken => {
             })
             .then(res => {
                 let tasks = [];
-                res.req.tasks.map(x => {
+                res.data.map(x => {
                     x = x.parse();
                     x.id = x._id;
                     delete x._id;
@@ -127,36 +132,7 @@ export const axiosSetTasksPrivateUser = userToken => {
                 console.log('tasks successfully set');
             })
             .catch(err => {
-                console.log('show private error', err.error);
+                console.log('show private error', err);
             });
     };
 };
-
-// export const axiosAddTaskTask = (taskData = {}) => {
-//     // return (dispatch, getState) => {
-//         const {
-//             title = '',
-//             description = '',
-//             startDate = 0,
-//             endDate = 0,
-//             status = '',
-//             access = ''
-//         } = taskData;
-//         const task = { title, description, startDate, endDate, status, access };
-//         return axios
-//             .post('/v1/user/create', task)
-//             .then(res => {
-//                 console.log(' successfully added ');
-//                 // dispatch(
-//                 //     addTask({
-//                 //         id: res.data['_id'],
-//                 //         ...task
-//                 //     })
-//                 // );
-//                 history.push("/v1/user");
-//             })
-//             .catch(err=>{
-//                 alert('add task error');
-//             });
-
-// };

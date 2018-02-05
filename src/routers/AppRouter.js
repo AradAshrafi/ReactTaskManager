@@ -19,23 +19,42 @@ class AppRouter extends React.Component {
     componentWillMount() {
         try {
             const userToken = localStorage.getItem('userToken');
-            const isAuth = axiosValidUser(userToken);
-            this.setState(({
-                userToken: userToken,
-                isAuth: isAuth /////??????
-            }),()=>{
-                if(history.location.pathname === '/'||history.location.pathname === '/login'||history.location.pathname === '/create'||history.location.pathname === '/signup'){
-                if ( (!(this.state.isAuth)) &&(!(history.location.pathname === '/' || history.location.pathname === '/login' || history.location.pathname === '/signup'))){
-                //to avoid porbable infinite loops
-                history.push('/');
-            }
-            console.log(history.location.pathname) ;
-            console.log('isAuth is : ',this.state.isAuth);
-            if (this.state.isAuth && (history.location.pathname === '/login' || history.location.pathname === '/signup')){
-                //to avoid porbable infinite loops
-                history.push('/');
+            axiosValidUser(userToken,(a)=>{
+                    console.log("isAuth in will mount",a);
+                    this.setState(({
+                        userToken: userToken,
+                        isAuth: a /////??????
+                    }),()=>{
+                        console.log(history.location.pathname) ;
+                        console.log('isAuth is : ',this.state.isAuth);
+                        if(history.location.pathname === '/'||history.location.pathname === '/login'||history.location.pathname === '/create'||history.location.pathname === '/signup'){
+                        if ( (!(this.state.isAuth)) &&(!(history.location.pathname === '/' || history.location.pathname === '/login' || history.location.pathname === '/signup'))){
+                        //to avoid porbable infinite loops
+                        history.push('/');
+                    }
+                    if (this.state.isAuth && (history.location.pathname === '/login' || history.location.pathname === '/signup')){
+                        //to avoid porbable infinite loops
+                        history.push('/');
+                    }}});
+            });
+            // console.log("isAuth in will mount",isAuth);
+            // this.setState(({
+            //     userToken: userToken,
+            //     isAuth: this.state.isAuth /////??????
+            // }),()=>{
+            //     if(history.location.pathname === '/'||history.location.pathname === '/login'||history.location.pathname === '/create'||history.location.pathname === '/signup'){
+            //     if ( (!(this.state.isAuth)) &&(!(history.location.pathname === '/' || history.location.pathname === '/login' || history.location.pathname === '/signup'))){
+            //     //to avoid porbable infinite loops
+            //     history.push('/');
+            // }
+            // console.log(history.location.pathname) ;
+            // console.log('isAuth is : ',this.state.isAuth);
+            // if (this.state.isAuth && (history.location.pathname === '/login' || history.location.pathname === '/signup')){
+            //     //to avoid porbable infinite loops
+            //     history.push('/');
                
-            }}});
+            // }}});
+            
             
         } catch (e) {
             console.log(e);
