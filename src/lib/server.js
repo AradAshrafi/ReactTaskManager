@@ -92,7 +92,10 @@ export const axiosValidUser = (userToken,callback) => {
 };
 
 export const axiosSetTasksPublicUser = () => {
+    console.log('kiiiir')
+    
     return dispatch => {
+        console.log('kiiiir')        
         return axios
             .get(
                 `${server_domain}/v1/user/task/showpublic`

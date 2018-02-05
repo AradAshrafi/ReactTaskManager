@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import Header from '../components/Header';
-
+import {history} from '../routers/AppRouter';
 const PublicRoute = ({ isAuth, component: Component, ...rest }) => {
     console.log(isAuth);
     return (
@@ -12,7 +12,7 @@ const PublicRoute = ({ isAuth, component: Component, ...rest }) => {
                     <Redirect to="/dashboard" />
                 ) : (
                     <div>
-                        {!history.pathName === ('/login' || '/signup') && (
+                        {!(history.location.pathname === '/login' || history.location.pathname === '/signup') && (
                             <Header isAuth={isAuth} />
                         )}
                         <Component isAuth={isAuth} {...props} />
