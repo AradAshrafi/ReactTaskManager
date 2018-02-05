@@ -12,7 +12,9 @@ const PublicRoute = ({ isAuth, component: Component, ...rest }) => {
                     <Redirect to="/dashboard" />
                 ) : (
                     <div>
-                        <Header isAuth={isAuth} />
+                        {!history.pathName === ('/login' || '/signup') && (
+                            <Header isAuth={isAuth} />
+                        )}
                         <Component isAuth={isAuth} {...props} />
                     </div>
                 )

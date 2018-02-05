@@ -24,7 +24,7 @@ class AppRouter extends React.Component {
             console.log('isAuth in will mount', a);
             this.setState({
                 userToken: userToken,
-                isAuth: a/////??????
+                isAuth: a /////??????
             }),
                 () => {
                     console.log(history.location.pathname);
@@ -80,33 +80,33 @@ class AppRouter extends React.Component {
     // }
 
     render() {
-        const isAuth=this.state.isAuth
+        const isAuth = this.state.isAuth;
         return (
             <Router history={history}>
                 <Switch>
                     <PrivateRoute
-                        isAuth
+                        isAuth={isAuth}
                         path="/create"
                         component={AddTask}
                     />
                     <PublicRoute
-                        isAuth
+                        isAuth={isAuth}
                         path="/"
                         component={TasksDashboard}
                         exact
                     />
                     <PrivateRoute
-                        isAuth
+                        isAuth={isAuth}
                         path="/dashboard"
                         component={TasksDashboard}
                     />
                     <PublicRoute
-                        isAuth
+                        isAuth={isAuth}
                         path="/login"
                         component={LoginPage}
                     />
                     <PublicRoute
-                        isAuth
+                        isAuth={isAuth}
                         path="/signup"
                         component={SignUpPage}
                     />

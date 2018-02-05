@@ -10,7 +10,13 @@ export const Header = props => (
                     <h1>Task Manager </h1>
                 </Link>
                 {props.isAuth ? (
-                    <button className="button">Log Out</button> //handle onClick to LogOut
+                    <a
+                        href="/"
+                        className="button"
+                        onClick={localStorage.removeItem('userToken')}
+                    >
+                        Log Out
+                    </a> //handle onClick to LogOut
                 ) : (
                     <div>
                         <Link
@@ -22,7 +28,8 @@ export const Header = props => (
                         <Link className="button button--link" to="/signup">
                             Sign Up
                         </Link>
-                    </div> //i dont use header--button twice because one margin is enough
+                    </div>
+                    //i dont use header--button twice because one margin is enough
                 )}
             </div>
         </div>

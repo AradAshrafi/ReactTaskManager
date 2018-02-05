@@ -9,6 +9,9 @@
     margin:0 $m-size $s-size;
     border-radius: 15px;
 }
+.text-input--group2{//for the first input of login page
+    margin-top:$l-size;
+}
 .select {
     @extend .text-input;
     height: 45px;

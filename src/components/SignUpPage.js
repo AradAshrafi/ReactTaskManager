@@ -60,15 +60,22 @@ export class SignUpPage extends React.Component {
         return (
             <div className="box-layout">
                 <div className="box-layout__box">
-                    <h1>Sign Up</h1>
                     <form className="box-layout__form" onSubmit={this.Register}>
                         {!!this.state.success && <p>{this.state.success}</p>}
                         {!!this.state.error && <p>{this.state.error}</p>}
                         <div className="box-layout__form">
-                            <div >
+                            <div>
+                                <span>
+                                    do you want to visit tasks as a guest ?{' '}
+                                </span>
+                                <a href="/" className="button">
+                                    Public Tasks
+                                </a>
+                            </div>
+                            <div>
                                 <h1>Please enter your information</h1>
                             </div>
-                            <div >
+                            <div>
                                 <input
                                     placeholder="enter your name"
                                     className="text-input  text-input--group1"
@@ -106,7 +113,9 @@ export class SignUpPage extends React.Component {
                             </div>
                         </div>
                         <div>
-                            <button className="button button--circle">Sign Up</button>
+                            <button className="button button--circle">
+                                Sign Up
+                            </button>
                         </div>
                         <div>
                             <p>already have an account ?</p>

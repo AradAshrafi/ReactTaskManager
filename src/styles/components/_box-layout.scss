@@ -10,6 +10,7 @@
 .box-layout__box{
     // background:fade-out(white,0.15);
     flex-direction: column;
+    margin:$m-size 0;
     width:40rem;
     text-align:center;
     display: flex;
