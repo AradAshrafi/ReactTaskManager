@@ -1,1 +1,1 @@
-export const server_domain = "http://192.168.1.51";
+export const server_domain = "http://localhost:3000";

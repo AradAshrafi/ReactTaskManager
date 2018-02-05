@@ -26,10 +26,10 @@ export const axiosSignUp = user => {
             console.log(localStorage.getItem('userToken'));
 
             //axiosSignUp's this is bind to signUpPage
-            this.setState(() => ({
-                success: 'Successfully registered'
-            }));
-            console.log(this.state.success) ////////????
+            // this.setState(() => ({
+            //     success: 'Successfully registered'
+            // }));
+            // console.log(this.state.success) ////////???? ////////////// bind nashodeee   
             setTimeout(() => history.push('/'), 1000);
         })
         .catch(err => {
@@ -39,13 +39,11 @@ export const axiosSignUp = user => {
 
 export const axiosLogIn = ({ email, password }) => {
     axios
-        .post(`${server_domain}/v1/user/login`, {
-            body: {
+        .post(`${server_domain}/v1/user/login`,{
                 email: email,
                 password: password
             },
-            headers: { 'content-type': 'application/json' }
-        })
+        )
         .then(res => {
             const userToken = res.req['token'];
             localStorage.setItem('userToken', userToken);
@@ -59,9 +57,8 @@ export const axiosLogIn = ({ email, password }) => {
 
 export const axiosAddTask = task => {
     axios
-        .post(`${server_domain}/v1/user/create`, {
-            body: { task: task },
-            headers: { 'content-type': 'application/json' }
+        .post(`${server_domain}/v1/user/task/create`,task ,{
+            headers: { 'Authorization': "bearer "+userToken }
         })
         .then(res => {
             console.log('task successfully added ');
@@ -75,8 +72,7 @@ export const axiosAddTask = task => {
 export const axiosValidUser = userToken => {
     axios
         .post(`${server_domain}/v1/user/validate`, {
-            body: { userToken },
-            headers: { 'content-type': 'application/json' }
+            headers: { 'Authorization': "bearer "+userToken }
         })
         .then(res => {
             console.log('validation has checked');
