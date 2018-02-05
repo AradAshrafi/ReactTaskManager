@@ -96,7 +96,7 @@ export default class TaskForm extends React.Component {
                             onChange={this.onAccessChange}
                         >
                             <option value={false}>Private</option>
-                            <option value={true}>access</option>
+                            <option value={true}>Public</option>
                         </select>
                     </div>
                 </div>
