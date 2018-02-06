@@ -105,6 +105,7 @@ export const axiosValidUser = (userToken,callback) => {
 
 export const axiosSetTasksPublicUser = () => {
     console.log('kiiiir')
+    console.log(localStorage.getItem('userToken'));
     
     return dispatch => {
         console.log('kiiiir')        

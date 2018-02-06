@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 
 export const Header = props => {
     console.log("auth in redux in Header",!!props.auth.isAuth);
-    console.log("isAuth in props in Header",props.isAuth);
     return(
         <div className="header">
             <div className="content-container">
@@ -14,7 +13,7 @@ export const Header = props => {
                     <Link className="link header header__title" to="/">
                         <h1>Task Manager </h1>
                     </Link>
-                    {props.isAuth ? (
+                    {props.auth.isAuth ? (
                         <a
                             href="/"
                             className="button"

@@ -7,25 +7,20 @@ import { connect } from 'react-redux';
 ///inja neshun dadam k chera bayad az store estefade konim ba console ha vali emal nashode!
 
 
-const PublicRoute = ({ auth,isAuth, component: Component, ...rest }) => {
-    console.log("isAuth in props mode",isAuth);
-    console.log("redux auth store",auth);
+const PublicRoute = ({ auth, component: Component, ...rest }) => {
     console.log("isAuth in redux mode",!!auth.isAuth);
-    
-    
-    
     return (
         <Route
             {...rest}
             component={props =>
-                isAuth ? (
+                auth.isAuth ? (
                     <Redirect to="/dashboard" />
                 ) : (
                     <div>
                         {!(history.location.pathname === '/login' || history.location.pathname === '/signup') && (
-                            <Header isAuth={isAuth} />
+                            <Header/>
                         )}
-                        <Component isAuth={isAuth} {...props} />
+                        <Component {...props} />
                     </div>
                 )
             }

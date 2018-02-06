@@ -16,8 +16,7 @@ export const history = createHistory();
 
 class AppRouter extends React.Component {
     state = {
-        userToken: null,
-        isAuth: false
+        userToken: null
     };
 
     componentDidMount() {
@@ -45,33 +44,27 @@ class AppRouter extends React.Component {
         );
     }
     render() {
-        const isAuth = this.state.isAuth;
         return (
             <Router history={history}>
                 <Switch>
                     <PrivateRoute
-                        isAuth={isAuth}
                         path="/create"
                         component={AddTask}
                     />
                     <PublicRoute
-                        isAuth={isAuth}
                         path="/"
                         component={TasksDashboard}
                         exact
                     />
                     <PrivateRoute
-                        isAuth={isAuth}
                         path="/dashboard"
                         component={TasksDashboard}
                     />
                     <PublicRoute
-                        isAuth={isAuth}
                         path="/login"
                         component={LoginPage}
                     />
                     <PublicRoute
-                        isAuth={isAuth}
                         path="/signup"
                         component={SignUpPage}
                     />
