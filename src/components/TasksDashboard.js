@@ -6,8 +6,7 @@ import Header from '../components/Header';
 import {axiosSetTasksPublicUser,axiosSetTasksPrivateUser} from '../lib/server';
 
 export const TasksDashboard =(props)=>{
-    console.log(props)
-    !props.isAuth ? axiosSetTasksPublicUser() : (axiosSetTasksPrivateUser(props.userToken),axiosSetTasksPublicUser());
+    console.log("props in Tasksdashboard",props)
     return (
         <div>
             <TasksList tasks={props.tasks} />            

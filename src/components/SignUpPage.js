@@ -2,7 +2,8 @@ import React from 'react';
 import { history } from '../routers/AppRouter';
 import { Link } from 'react-router-dom';
 import { axiosSignUp } from '../lib/server';
-
+import {connect} from "react-redux";
+//this.props.dipatcho ezafe kardam chon tu axios setAuth zade budam
 export class SignUpPage extends React.Component {
     constructor(props) {
         super(props);
@@ -20,7 +21,6 @@ export class SignUpPage extends React.Component {
     };
 
     Register = e => {
-        // let userToken;
         e.preventDefault();
 
         const user = {
@@ -29,11 +29,7 @@ export class SignUpPage extends React.Component {
             phoneNumber: this.state.phoneNumber,
             password: this.state.passsword
         };
-        axiosSignUp(user);
-
-        // localStorage.setItem('userToken', userToken);
-        // console.log(localStorage.getItem('userToken'));
-        // history.push('/');
+        this.props.dipatch(axiosSignUp(user));
     };
 
     onNameChange = e => {
@@ -130,4 +126,4 @@ export class SignUpPage extends React.Component {
     };
 }
 
-export default SignUpPage;
+export default connect() (SignUpPage);

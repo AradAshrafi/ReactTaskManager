@@ -4,17 +4,16 @@ import { Link } from 'react-router-dom';
 // import { fakeJWT} from '../lib/server';
 import { history } from '../routers/AppRouter';
 import { axiosLogIn } from '../lib/server';
-
-export default class LoginPage extends React.Component {
+////////اینجا فقق این عبارت او اضافه کردم چون تو اکسیوس ولیدیتور ست آت اضافه کردمthis.props.dispatch(...)
+ class LoginPage extends React.Component {
     state = {
         error: ''
     };
     onFormSubmit = e => {
-        let userToken;
         e.preventDefault();
         const email = e.target.elements.email.value;
         const password = e.target.elements.password.value;
-        axiosLogIn({ email, password });
+        this.props.dispatch(axiosLogIn({ email, password }));
     };
     render() {
         return (
@@ -65,3 +64,5 @@ export default class LoginPage extends React.Component {
         );
     }
 }
+
+export default connect ()(LoginPage);

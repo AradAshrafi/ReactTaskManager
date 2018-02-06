@@ -9,7 +9,9 @@ import AddTask from '../components/AddTask';
 import { axiosValidUser } from '../lib/server';
 import PublicRoute from '../routers/PublicRouter';
 import PrivateRoute from '../routers/PrivateRouter';
-
+import {connect} from 'react-redux';
+import {setAuth} from "../actions/auth";
+////dispacho b validator ezafe kardam
 export const history = createHistory();
 
 class AppRouter extends React.Component {
@@ -18,67 +20,30 @@ class AppRouter extends React.Component {
         isAuth: false
     };
 
-    componentWillMount() {
+    componentDidMount() {
         const userToken = localStorage.getItem('userToken');
-        axiosValidUser(userToken, a => {
-            console.log('isAuth in will mount', a);
-            this.setState({
-                userToken: userToken,
-                isAuth: a /////??????
-            },
-            () => {
-                console.log(history.location.pathname);
-                console.log('isAuth is : ', this.state.isAuth);
-            })
-        });
+        console.log("userToken in localStorage in componentDidMount  =",localStorage.getItem("userToken"));
+        console.log("userToken vaghry reload mikoni tu componentDidMount=",userToken);
+        this.props.dispatch(
+            axiosValidUser(userToken, a => {
+                    console.log("userToken in localStorage in componentDidMount  in dispaching axiosvalidUser =",localStorage.getItem("userToken"));        
+                    console.log("userToken vaghry reload mikoni tu componentDidMount in callback=",userToken);            
+                    // localStorage.setItem('userToken', userToken);
+                    console.log('isAuth in Did mount "a" =', a);
+                    this.props.dispatch(setAuth(a));    /////ino neveshtam hala dg redux ba reload kardan khali nemishe 
+                    // localStorage.setItem('userToken',userToken);
+                    this.setState({
+                            userToken: userToken,
+                            isAuth: a /////??????
+                        },
+                        () => {
+                            console.log('isAuth in props mode in componentDidMount in setState callback is : ', this.state.isAuth);
+                        }
+                    )
+                }
+            )
+        );
     }
-
-    // try {
-    //     const userToken = localStorage.getItem('userToken');
-    //     axiosValidUser(userToken, a => {
-    //         console.log('isAuth in will mount', a);
-    //         this.setState(
-    //             {
-    //                 userToken: userToken,
-    //                 isAuth: a /////??????
-    //             },
-    //             () => {
-    //                 console.log(history.location.pathname);
-    //                 console.log('isAuth is : ', this.state.isAuth);
-    //                 if (
-    //                     history.location.pathname === '/' ||
-    //                     history.location.pathname === '/login' ||
-    //                     history.location.pathname === '/create' ||
-    //                     history.location.pathname === '/signup'
-    //                 ) {
-    //                     if (
-    //                         !this.state.isAuth &&
-    //                         !(
-    //                             history.location.pathname === '/' ||
-    //                             history.location.pathname === '/login' ||
-    //                             history.location.pathname === '/signup'
-    //                         )
-    //                     ) {
-    //                         //to avoid porbable infinite loops
-    //                         history.push('/');
-    //                     }
-    //                     if (
-    //                         this.state.isAuth &&
-    //                         (history.location.pathname === '/login' ||
-    //                             history.location.pathname === '/signup')
-    //                     ) {
-    //                         //to avoid porbable infinite loops
-    //                         history.push('/');
-    //                     }
-    //                 }
-    //             }
-    //         );
-    //     });
-
-    // } catch (e) {
-    //     console.log(e);
-    // }
-
     render() {
         const isAuth = this.state.isAuth;
         return (
@@ -117,4 +82,4 @@ class AppRouter extends React.Component {
     }
 }
 
-export default AppRouter;
+export default connect()(AppRouter);

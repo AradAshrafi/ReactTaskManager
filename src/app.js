@@ -19,7 +19,7 @@ const jsx=(
         store.dispatch(axiosSetTasksPublicUser());
     }else{
         store.dispatch(axiosSetTasksPublicUser());
-        store.dispatch(axiosSetTasksPrivateUser(this.props.userToken));
+        store.dispatch(axiosSetTasksPrivateUser(localStorage.getItem('userToken')));  //// inja user tokeno az localStorage gereftam va dadam behesh
     }
 //componentWillMount();
 ReactDOM.render(jsx,document.getElementById('app'));

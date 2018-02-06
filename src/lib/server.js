@@ -1,5 +1,7 @@
 import { server_domain } from './config';
 import { setTasks } from '../actions/tasks';
+import { setAuth } from '../actions/auth';
+//dispacho b validator va login va signUp ezafe kardam
 import axios from 'axios';
 import {
     AxiosProvider,
@@ -16,15 +18,16 @@ import {history} from  "../routers/AppRouter"; ///////?????
 // export const fakeJWT = '1234';
 
 export const axiosSignUp = user => {
-    axios
+    return dispatch =>{
+        return axios
         .post(`${server_domain}/v1/user/signup`,user, {
             headers: { 'content-type': 'application/json' }
         })
         .then(res => {
             const userToken = res.data.token;   ////////????
             localStorage.setItem('userToken', userToken);
-            console.log(localStorage.getItem('userToken'));
-
+            console.log('checking token in axiosSignUp in localStorage',localStorage.getItem('userToken'));
+            dispatch(setAuth(true));            
             // axiosSignUp's this is bind to signUpPage
             // this.setState(() => ({
             //     success: 'Successful ly registered'
@@ -35,11 +38,12 @@ export const axiosSignUp = user => {
         .catch(err => {
             // console.log(err);
             alert('sign up error');
-        });
+        });}
 };
 
 export const axiosLogIn = ({ email, password }) => {
-    axios
+    return dispatch =>{
+        return axios
         .post(`${server_domain}/v1/user/login`,{
                 email: email,
                 password: password
@@ -48,12 +52,14 @@ export const axiosLogIn = ({ email, password }) => {
         .then(res => {
             const userToken = res.data.token;
             localStorage.setItem('userToken', userToken);
-            console.log(localStorage.getItem('userToken'));
+            dispatch(setAuth(true));
+            console.log('checking token in axiosLogin in localStorage',localStorage.getItem('userToken'));
             history.push('/');
         })
         .catch(err => {
             alert('log in error');
         });
+    }
 };
 
 export const axiosAddTask = task => {
@@ -72,23 +78,29 @@ export const axiosAddTask = task => {
 };
 
 export const axiosValidUser = (userToken,callback) => {
-    axios
+    return dispatch =>{
+        return axios
         .get(`${server_domain}/v1/user/validate`, {
             headers: { 'Authorization': "bearer "+userToken }
         })
         .then(res => {
             console.log('validation has checked');
             console.log("isAuth checking in axiosValida");
-            const isAuth = res.data['isValid'];
+            console.log("userToken in localStorage in axiosValidUser then =",localStorage.getItem("userToken"));
+            // localStorage.setItem('userToken', userToken);  /////ino ezafe kardam chon harbar reload mikardi localStorage khali mishod!!            
+            const isAuth = !!res.data.isValid;
+            dispatch(setAuth(isAuth));
             console.log("isAuth in axios",isAuth);
             history.push('/');
             callback(isAuth);
-            
-            
         })
         .catch(err => {
             alert('validation checking error');
+            console.log("userToken in localStorage in axiosValidUser catch =",localStorage.getItem("userToken"));
+                  
         });
+    }
+    
 };
 
 export const axiosSetTasksPublicUser = () => {
