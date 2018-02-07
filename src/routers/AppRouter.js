@@ -24,22 +24,24 @@ class AppRouter extends React.Component {
         console.log("userToken in localStorage in componentDidMount  =",localStorage.getItem("userToken"));
         console.log("userToken vaghry reload mikoni tu componentDidMount=",userToken);
         this.props.dispatch(
-            axiosValidUser(userToken, a => {
-                    console.log("userToken in localStorage in componentDidMount  in dispaching axiosvalidUser =",localStorage.getItem("userToken"));        
-                    console.log("userToken vaghry reload mikoni tu componentDidMount in callback=",userToken);            
-                    // localStorage.setItem('userToken', userToken);
-                    console.log('isAuth in Did mount "a" =', a);
-                    this.props.dispatch(setAuth(a));    /////ino neveshtam hala dg redux ba reload kardan khali nemishe 
-                    // localStorage.setItem('userToken',userToken);
-                    this.setState({
-                            userToken: userToken,
-                            isAuth: a /////??????
-                        },
-                        () => {
-                            console.log('isAuth in props mode in componentDidMount in setState callback is : ', this.state.isAuth);
-                        }
-                    )
-                }
+            axiosValidUser(userToken
+                //  ,
+                //  a => {
+                //     console.log("userToken in localStorage in componentDidMount  in dispaching axiosvalidUser =",localStorage.getItem("userToken"));        
+                //     console.log("userToken vaghry reload mikoni tu componentDidMount in callback=",userToken);            
+                //     // localStorage.setItem('userToken', userToken);
+                //     console.log('isAuth in Did mount "a" =', a);
+                //     // this.props.dispatch(setAuth(a));    /////ino neveshtam hala dg redux ba reload kardan khali nemishe 
+                //     // localStorage.setItem('userToken',userToken);
+                //     this.setState({
+                //             userToken: userToken,
+                //             isAuth: a /////??????
+                //         },
+                //         () => {
+                //             console.log('isAuth in props mode in componentDidMount in setState callback is : ', this.state.isAuth);
+                //         }
+                //     )
+                // }
             )
         );
     }

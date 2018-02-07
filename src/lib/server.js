@@ -21,7 +21,7 @@ export const axiosSignUp = user => {
     return dispatch =>{
         return axios
         .post(`${server_domain}/v1/user/signup`,user, {
-            headers: { 'content-type': 'application/json' }
+            headers: { Authorization: 'Bearer ' + userToken }
         })
         .then(res => {
             const userToken = res.data.token;   ////////????
@@ -50,11 +50,23 @@ export const axiosLogIn = ({ email, password }) => {
             },
         )
         .then(res => {
+            alert("2-1 ran into axuisLogin");
+            console.log('response tu axiosLogin',res);
             const userToken = res.data.token;
+            console.log("userToken in axiosLogin",userToken);
             localStorage.setItem('userToken', userToken);
-            dispatch(setAuth(true));
-            console.log('checking token in axiosLogin in localStorage',localStorage.getItem('userToken'));
-            history.push('/');
+            console.log('checking token in axiosLogin in localStorage 1 before setAuth',localStorage.getItem('userToken'));            
+            dispatch(setAuth(true)); ///token b fuck raf
+            console.log('checking token in axiosLogin in localStorage 2 after setAuth',localStorage.getItem('userToken'));
+            localStorage.setItem('userToken', userToken);            
+            alert("2-2");
+            console.log('checking token in axiosLogin in localStorage 3 after setAuth',localStorage.getItem('userToken'));
+            
+            history.push('/'); //inam baes mishe token az bein bere
+            alert("2-3");
+            console.log('checking token in axiosLogin in localStorage 4 after setAuth and history.push',localStorage.getItem('userToken'));
+            localStorage.setItem('userToken', userToken);            
+            console.log('checking token in axiosLogin in localStorage 5 at the end',localStorage.getItem('userToken'));
         })
         .catch(err => {
             alert('log in error');
@@ -65,37 +77,54 @@ export const axiosLogIn = ({ email, password }) => {
 export const axiosAddTask = task => {
     const userToken=localStorage.getItem('userToken');
     axios
-        .post(`${server_domain}/v1/user/task/create`,task ,{
-            headers: { 'Authorization': "bearer "+userToken }
+        .post(`${server_domain}/v1/user/task/create`,task , {
+            headers: { Authorization: 'Bearer ' + userToken }
         })
         .then(res => {
+            alert("4-1")
             console.log('task successfully added ');
             history.push('/');
         })
         .catch(err => {
+            console.log("addtask error reponse ::",err);
             alert('addTask  error');
         });
 };
 
-export const axiosValidUser = (userToken,callback) => {
+export const axiosValidUser = (userToken) => {
     return dispatch =>{
         return axios
         .get(`${server_domain}/v1/user/validate`, {
-            headers: { 'Authorization': "bearer "+userToken }
-        })
+                headers: { Authorization: 'Bearer ' + userToken }
+            })
         .then(res => {
+            alert("3-1");
+            console.log("response to the axiosValidUser", res);
+            alert("3-2");
             console.log('validation has checked');
-            console.log("isAuth checking in axiosValida");
             console.log("userToken in localStorage in axiosValidUser then =",localStorage.getItem("userToken"));
             // localStorage.setItem('userToken', userToken);  /////ino ezafe kardam chon harbar reload mikardi localStorage khali mishod!!            
+            alert("3-3");
             const isAuth = !!res.data.isValid;
-            dispatch(setAuth(isAuth));
+            console.log(" 3-3 userToken in localStorage in axiosValidUser then =",localStorage.getItem("userToken"));            
+            alert("3-4");
+            dispatch(setAuth(isAuth)); ///token b ga raf
+            console.log("3-4 userToken in localStorage in axiosValidUser then =",localStorage.getItem("userToken"));     
+            localStorage.setItem('userToken', userToken);            
+                   
+            alert("3-5");
             console.log("isAuth in axios",isAuth);
-            history.push('/');
-            callback(isAuth);
+            // history.push('/');
+            console.log("3-5 userToken in localStorage in axiosValidUser then =",localStorage.getItem("userToken"));            
+            alert("3-6");
+            console.log("3-6 userToken in localStorage in axiosValidUser then =",localStorage.getItem("userToken"))            
+            // callback(isAuth);
+            alert("3-7");
+            console.log("3-7 userToken in localStorage in axiosValidUser then =",localStorage.getItem("userToken"))            
         })
         .catch(err => {
             alert('validation checking error');
+            console.log("validation error in axiosValiduser",err)
             console.log("userToken in localStorage in axiosValidUser catch =",localStorage.getItem("userToken"));
                   
         });
@@ -116,7 +145,7 @@ export const axiosSetTasksPublicUser = () => {
             .then(res => {
                 let tasks = [];
                 res.data.map(x => {
-                    console.log(x);
+                    console.log("taskses addes in public axios",x);
                     x.id = x._id;
                     delete x._id;
                     tasks.push(x);
@@ -139,7 +168,7 @@ export const axiosSetTasksPrivateUser = userToken => {
             .then(res => {
                 let tasks = [];
                 res.data.map(x => {
-                    console.log(x);
+                    console.log('tasks added in private axios',x);
                     x.id = x._id;
                     delete x._id;
                     tasks.push(x);

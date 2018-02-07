@@ -13,7 +13,7 @@ const PublicRoute = ({ auth, component: Component, ...rest }) => {
         <Route
             {...rest}
             component={props =>
-                auth.isAuth ? (
+                !!auth.isAuth ? (
                     <Redirect to="/dashboard" />
                 ) : (
                     <div>

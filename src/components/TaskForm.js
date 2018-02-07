@@ -4,8 +4,9 @@ import 'react-dates/lib/css/_datepicker.css';
 import { history } from '../routers/AppRouter';
 import moment from 'moment';
 import { axiosAddTask } from '../lib/server';
+import {connect} from "react-redux";
 
-export default class TaskForm extends React.Component {
+export  class TaskForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -32,13 +33,14 @@ export default class TaskForm extends React.Component {
         // });
         e.preventDefault();
         axiosAddTask({
-            title: this.state.title,
-            description: this.state.description,
-            startDate: this.state.startDate,
-            endDate: this.state.endDate,
-            status: this.state.status,
-            access: this.state.access
-        });
+                title: this.state.title,
+                description: this.state.description,
+                startDate: this.state.startDate,
+                endDate: this.state.endDate,
+                status: this.state.status,
+                access: this.state.access
+                }
+            )  
     };
 
     onTitleChange = e => {
@@ -143,3 +145,6 @@ export default class TaskForm extends React.Component {
         );
     }
 }
+
+
+export default connect()(TaskForm);

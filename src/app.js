@@ -14,12 +14,16 @@ const store=configureStore();
 const jsx=(
     <Provider store={store}><AppRouter /></Provider>
 )
-
-    if(!store.auth){
+    console.log(store);
+    if(!store.auth.isAuth){
+        alert("10-1");
         store.dispatch(axiosSetTasksPublicUser());
     }else{
+        alert("10-2");        
         store.dispatch(axiosSetTasksPublicUser());
+        alert("10-3");        
         store.dispatch(axiosSetTasksPrivateUser(localStorage.getItem('userToken')));  //// inja user tokeno az localStorage gereftam va dadam behesh
+        alert("10-4");        
     }
 //componentWillMount();
 ReactDOM.render(jsx,document.getElementById('app'));

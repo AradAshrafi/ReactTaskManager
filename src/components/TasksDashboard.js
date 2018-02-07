@@ -4,6 +4,8 @@ import TasksList from "./Taskslist";
 import {Link} from "react-router-dom";
 import Header from '../components/Header';
 import {axiosSetTasksPublicUser,axiosSetTasksPrivateUser} from '../lib/server';
+import {connect} from "react-redux";
+
 
 export const TasksDashboard =(props)=>{
     console.log("props in Tasksdashboard",props)
@@ -11,7 +13,7 @@ export const TasksDashboard =(props)=>{
         <div>
             <TasksList tasks={props.tasks} />            
             <div className="content-container">
-                {(props.isAuth) ?
+                {(!!props.auth.isAuth) ?
                 <Link to='/create' className="button button--link button--cover">Add task</Link>
                 :
                 <Link to='/login' className="button button--link button--cover">Add task</Link>                
@@ -21,9 +23,8 @@ export const TasksDashboard =(props)=>{
     );
 };
 
-// const mapStateToProps= (state)=>({
-//     tasks:state.tasks
-// })
-// export default connect(mapStateToProps)(TasksDashboard);
-
-export default TasksDashboard;
+const mapStateToProps= (state)=>({
+    tasks:state.tasks,
+    auth:state.auth
+})
+export default connect(mapStateToProps)(TasksDashboard);

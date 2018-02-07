@@ -13,11 +13,11 @@ export const Header = props => {
                     <Link className="link header header__title" to="/">
                         <h1>Task Manager </h1>
                     </Link>
-                    {props.auth.isAuth ? (
+                    {!!props.auth.isAuth ? (
                         <a
                             href="/"
                             className="button"
-                            onClick={localStorage.removeItem('userToken')}
+                            onClick={()=>localStorage.removeItem('userToken')} //hatman bayad dakhele function benevisim
                         >
                             Log Out
                         </a> //handle onClick to LogOut
