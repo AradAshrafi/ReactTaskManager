@@ -29,7 +29,7 @@ export class SignUpPage extends React.Component {
             phoneNumber: this.state.phoneNumber,
             password: this.state.passsword
         };
-        this.props.dipatch(axiosSignUp(user));
+        this.props.dispatch(axiosSignUp(user));
     };
 
     onNameChange = e => {

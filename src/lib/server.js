@@ -20,19 +20,12 @@ import {history} from  "../routers/AppRouter"; ///////?????
 export const axiosSignUp = user => {
     return dispatch =>{
         return axios
-        .post(`${server_domain}/v1/user/signup`,user, {
-            headers: { Authorization: 'Bearer ' + userToken }
-        })
+        .post(`${server_domain}/v1/user/signup`,user)
         .then(res => {
             const userToken = res.data.token;   ////////????
             localStorage.setItem('userToken', userToken);
             console.log('checking token in axiosSignUp in localStorage',localStorage.getItem('userToken'));
             dispatch(setAuth(true));            
-            // axiosSignUp's this is bind to signUpPage
-            // this.setState(() => ({
-            //     success: 'Successful ly registered'
-            // }));
-            // console.log(this.state.success)////////???? ////////////// bind nashodeee   
             setTimeout(() => history.push('/'), 1000);
         })
         .catch(err => {
@@ -91,7 +84,7 @@ export const axiosAddTask = task => {
         });
 };
 
-export const axiosValidUser = (userToken) => {
+export const axiosValidUser = (userToken,callback) => {
     return dispatch =>{
         return axios
         .get(`${server_domain}/v1/user/validate`, {
@@ -120,11 +113,13 @@ export const axiosValidUser = (userToken) => {
             console.log("3-6 userToken in localStorage in axiosValidUser then =",localStorage.getItem("userToken"))            
             // callback(isAuth);
             alert("3-7");
-            console.log("3-7 userToken in localStorage in axiosValidUser then =",localStorage.getItem("userToken"))            
+            console.log("3-7 userToken in localStorage in axiosValidUser then =",localStorage.getItem("userToken"));
+            callback();           
         })
         .catch(err => {
             alert('validation checking error');
             console.log("validation error in axiosValiduser",err)
+            dispatch(axiosSetTasksPublicUser());
             console.log("userToken in localStorage in axiosValidUser catch =",localStorage.getItem("userToken"));
                   
         });
