@@ -22,7 +22,7 @@ const PrivateRoute = ({ auth, component: Component, ...rest }) => {
     />
 )};
 
-const mapStateToProps=(state)=>({
+const mapStateToProps=(state)=>({ 
     auth:state.auth
 })
 

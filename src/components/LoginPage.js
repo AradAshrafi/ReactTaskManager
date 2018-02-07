@@ -7,7 +7,7 @@ import { axiosLogIn } from '../lib/server';
 ////////اینجا فقق این عبارت او اضافه کردم چون تو اکسیوس ولیدیتور ست آت اضافه کردمthis.props.dispatch(...)
  class LoginPage extends React.Component {
     state = {
-        error: ''
+        error: '' 
     };
     onFormSubmit = e => {
         e.preventDefault();

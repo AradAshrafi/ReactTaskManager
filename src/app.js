@@ -11,7 +11,7 @@ import {axiosSetTasksPublicUser,axiosSetTasksPrivateUser} from './lib/server';
 
 const store=configureStore();
 
-const jsx=(
+const jsx=( 
     <Provider store={store}><AppRouter /></Provider>
 )
     console.log(store);

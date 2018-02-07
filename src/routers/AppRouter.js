@@ -29,7 +29,7 @@ class AppRouter extends React.Component {
         };
     }
 
-    componentDidMount() {
+    componentDidMount() { 
         const userToken = localStorage.getItem('userToken');
         console.log(
             'userToken in localStorage in componentDidMount  =',

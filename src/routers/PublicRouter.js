@@ -27,7 +27,7 @@ const PublicRoute = ({ auth, component: Component, ...rest }) => {
         />
     );
 };
-
+ 
 const mapStateToProps=(state)=>({
     auth:state.auth
 })

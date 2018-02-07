@@ -26,7 +26,7 @@ class TasksDashboard extends React.Component {
         }
     }
 
-    render() {
+    render() { 
         return (
             <div>
                 <TasksList tasks={this.props.tasks} />

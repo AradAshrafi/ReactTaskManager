@@ -158,7 +158,7 @@ export const axiosSetTasksPublicUser = () => {
 };
 
 export const axiosSetTasksPrivateUser = userToken => {
-    return dispatch => {
+    return dispatch => { 
         return axios
             .get(`${server_domain}/v1/user/task/show`, {
                 headers: { Authorization: 'Bearer ' + userToken }

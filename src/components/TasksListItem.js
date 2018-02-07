@@ -13,7 +13,7 @@ export const TasksListItem = ({
     access
 }) => {
     return (
-        <Link to={`/edit/${id}`}>
+        <Link to={`/edit/${id}`}> 
             <div className="list-item">
                 <div className="list-item-content">
                     <h3>{title}</h3>

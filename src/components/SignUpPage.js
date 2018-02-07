@@ -10,7 +10,7 @@ export class SignUpPage extends React.Component {
 
         // axiosSignUp.bind(this);
     }
-    state = {
+    state = { 
         error: undefined,
         errorText: undefined,
         success: undefined,

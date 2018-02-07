@@ -3,7 +3,7 @@ import TaskForm from './TaskForm';
 import Header from '../components/Header';
 
 export default class AddTask extends React.Component {
-    render() {
+    render() { 
         return (
             <div>
                 <div className="content-container">

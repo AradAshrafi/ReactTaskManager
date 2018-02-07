@@ -23,7 +23,7 @@ export const TasksList = ({tasks}) => {
     );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = state => ({ 
     tasks: state.tasks
 });
 

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 export const Header = props => {
     console.log("auth in redux in Header",!!props.auth.isAuth);
-    return(
+    return(  
         <div className="header">
             <div className="content-container">
                 <div className="header__content">
