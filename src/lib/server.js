@@ -55,7 +55,7 @@ export const axiosLogIn = ({ email, password }) => {
             // alert("2-2");
             // console.log('checking token in axiosLogin in localStorage 3 after setAuth',localStorage.getItem('userToken'));
             
-            history.push('/'); //inam baes mishe token az bein bere
+            // history.push('/'); //inam baes mishe token az bein bere
             // alert("2-3");
             // console.log('checking token in axiosLogin in localStorage 4 after setAuth and history.push',localStorage.getItem('userToken'));
             // // localStorage.setItem('userToken', userToken);            
@@ -84,7 +84,7 @@ export const axiosAddTask = task => {
         });
 };
 
-export const axiosValidUser = (userToken,callback) => {
+export const axiosValidUser = (userToken,callback1,callback2) => {
     return dispatch =>{
         return axios
         .get(`${server_domain}/v1/user/validate`, {
@@ -114,13 +114,15 @@ export const axiosValidUser = (userToken,callback) => {
             // // callback(isAuth);
             // alert("3-7");
             // console.log("3-7 userToken in localStorage in axiosValidUser then =",localStorage.getItem("userToken"));
-            callback();           
+            
+            callback1(true);           
         })
         .catch(err => {
             alert('validation checking error');
             console.log("validation error in axiosValiduser",err)
-            dispatch(axiosSetTasksPublicUser());
+            dispatch(setAuth(false));          
             console.log("userToken in localStorage in axiosValidUser catch =",localStorage.getItem("userToken"));
+            callback2(true);
                   
         });
     }
