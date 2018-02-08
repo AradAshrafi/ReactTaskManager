@@ -3,9 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import { connect } from 'react-redux';
 
-///inja neshun dadam k chera bayad az store estefade konim ba console ha vali emal nashode!
 const PrivateRoute = ({ auth, component: Component, ...rest }) => {
-   console.log("isauth in redux mode in  private  route=",!!auth.isAuth);
     return(
     <Route
         {...rest}

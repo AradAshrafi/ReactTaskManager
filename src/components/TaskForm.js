@@ -4,9 +4,9 @@ import 'react-dates/lib/css/_datepicker.css';
 import { history } from '../routers/AppRouter';
 import moment from 'moment';
 import { axiosAddTask } from '../lib/server';
-import {connect} from "react-redux";
+import { connect } from 'react-redux';
 
-export  class TaskForm extends React.Component {
+export class TaskForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -31,16 +31,16 @@ export  class TaskForm extends React.Component {
         //     status:this.state.status,
         //     access:this.state.access
         // });
+
         e.preventDefault();
         axiosAddTask({
-                title: this.state.title,
-                description: this.state.description,
-                startDate: this.state.startDate,
-                endDate: this.state.endDate,
-                status: this.state.status,
-                access: this.state.access
-                }
-            )  
+            title: this.state.title,
+            description: this.state.description,
+            startDate: this.state.startDate,
+            endDate: this.state.endDate,
+            status: this.state.status,
+            access: this.state.access
+        });
     };
 
     onTitleChange = e => {
@@ -72,7 +72,7 @@ export  class TaskForm extends React.Component {
     };
 
     onAccessChange = e => {
-        const access = !!e.target.value;
+        const access = e.target.value === 'Public' ? true : false;
         this.setState(() => ({
             access
         }));
@@ -94,11 +94,15 @@ export  class TaskForm extends React.Component {
                     <div className="input-group__item">
                         <select
                             className="select"
-                            value={this.state.access}
+                            value={
+                                this.state.access === true
+                                    ? 'Public'
+                                    : 'Private'
+                            }
                             onChange={this.onAccessChange}
                         >
-                            <option value={false}>Private</option>
-                            <option value={true}>Public</option>
+                            <option value="Private">Private</option>
+                            <option value="Public">Public</option>
                         </select>
                     </div>
                 </div>
@@ -132,7 +136,7 @@ export  class TaskForm extends React.Component {
                             onDatesChange={this.onDatesChange}
                             focusedInput={this.state.calendarFocused}
                             onFocusChange={this.onFocusChange}
-                            numberOfMonths={1} 
+                            numberOfMonths={1}
                             isOutsideRange={() => false}
                             showClearDates={true}
                         />
@@ -145,6 +149,5 @@ export  class TaskForm extends React.Component {
         );
     }
 }
-
 
 export default connect()(TaskForm);

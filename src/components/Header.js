@@ -2,10 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { history } from '../routers/AppRouter';
 import { connect } from 'react-redux';
-/////تو این قسمت فقط کانکت کردم به استور و باید از ریداکس به جای پراپس استفاده کنیم به دلایل کنسول هایی که گزاشتم ولی تغییر رو اعمال نکردم 
 
 export const Header = props => {
-    console.log("auth in redux in Header",!!props.auth.isAuth);
     return(  
         <div className="header">
             <div className="content-container">
@@ -20,7 +18,7 @@ export const Header = props => {
                             onClick={()=>localStorage.removeItem('userToken')} //hatman bayad dakhele function benevisim
                         >
                             Log Out
-                        </a> //handle onClick to LogOut
+                        </a>
                     ) : (
                         <div>
                             <Link
@@ -37,7 +35,7 @@ export const Header = props => {
                     )}
                 </div>
             </div>
-        </div> //handle Style
+        </div>
     );
 }
 const mapStateToProps=(state)=>({

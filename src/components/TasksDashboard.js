@@ -8,22 +8,22 @@ import {
     axiosSetTasksPrivateUser
 } from '../lib/server';
 import { connect } from 'react-redux';
+import { setTasks } from '../actions/tasks';
 
 class TasksDashboard extends React.Component {
-    componentDidMount() {
-        alert("ComponentDidMount-tasksDashboard 1 ")
+    componentWillMount() {
         console.log('props in Tasksdashboard', this.props);
-        if (!!this.props.auth.isAuth){
-            alert('ComponentDidMount-tasksDashboard-before-private-2');            
-            this.props.dispatch(
-                axiosSetTasksPrivateUser(localStorage.getItem('userToken'))
-            ); 
-            alert('ComponentDidMount-tasksDashboard-3');
-        }
+        this.props.dispatch(setTasks({}));
+        this.props.dispatch(axiosSetTasksPublicUser());
+        this.props.dispatch(
+            axiosSetTasksPrivateUser(localStorage.getItem('userToken'))
+        );
+    }
+    componentWillUnmount() {
+        this.props.dispatch(setTasks([]));
     }
 
-    render() { 
-        alert("START-tasksDashbpard-render-1");
+    render() {
         return (
             <div>
                 <TasksList tasks={this.props.tasks} />
@@ -46,7 +46,6 @@ class TasksDashboard extends React.Component {
                 </div>
             </div>
         );
-        alert("END-tasksDashbpard-render-2") ;       
     }
 }
 

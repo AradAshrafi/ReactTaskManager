@@ -4,11 +4,7 @@ import Header from '../components/Header';
 import {history} from '../routers/AppRouter';
 import { connect } from 'react-redux';
 
-///inja neshun dadam k chera bayad az store estefade konim ba console ha vali emal nashode!
-
-
 const PublicRoute = ({ auth, component: Component, ...rest }) => {
-    console.log("isAuth in redux mode",!!auth.isAuth);
     return (
         <Route
             {...rest}
