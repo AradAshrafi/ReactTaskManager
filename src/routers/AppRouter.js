@@ -16,7 +16,7 @@ import {
     axiosSetTasksPrivateUser,
     axiosSetTasksPublicUser
 } from '../lib/server';
-////dispacho b validator ezafe kardam
+
 export const history = createHistory();
 
 class AppRouter extends React.Component {
@@ -30,27 +30,29 @@ class AppRouter extends React.Component {
     }
 
     componentDidMount() { 
+        alert("componentDidMount-AppRouter 9-1");
         const userToken = localStorage.getItem('userToken');
         console.log(
             'userToken in localStorage in componentDidMount  =',
             localStorage.getItem('userToken')
         );
-        console.log(
-            'userToken vaghry reload mikoni tu componentDidMount=',
-            userToken
-        );
+        alert("componentDidMount-AppRouter-before Dispatching axiosValidUser 9-2");        
         this.props.dispatch(
             axiosValidUser(
                 userToken,
                 e1 => {
+                    alert("callback1");
                     if (e1)
                         this.setState({
                             loading: false,
                             data: true,
                             error: false
                         });
+                    console.log('1111app routers auth : ', this.props.auth);
+                    console.log('1111app routers state : ', this.state);
                 },
                 e2 => {
+                    alert("callback2");                    
                     if (e2)
                         this.setState({
                             loading: false,
@@ -59,11 +61,19 @@ class AppRouter extends React.Component {
                         });
                     console.log('1111app routers auth : ', this.props.auth);
                     console.log('1111app routers state : ', this.state);
+                },
+                ()=>{
+                    {
+                        alert("callback3");
+                        this.props.dispatch(axiosSetTasksPublicUser());
+                    } 
                 }
+            
             )
         );
     }
     render() {
+        alert("AppRoter-render 11-1")
         console.log(this.state);
         return (
             <Router history={history}>
@@ -92,6 +102,7 @@ class AppRouter extends React.Component {
                 </div>
             </Router>
         );
+        alert("ENDAppRoter-render 11-2");
     }
 }
 const mapStateToProps = state => ({

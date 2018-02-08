@@ -11,22 +11,19 @@ import { connect } from 'react-redux';
 
 class TasksDashboard extends React.Component {
     componentDidMount() {
+        alert("ComponentDidMount-tasksDashboard 1 ")
         console.log('props in Tasksdashboard', this.props);
-        if (!this.props.auth.isAuth) {
-            alert('10-1');
-            this.props.dispatch(axiosSetTasksPublicUser());
-        } else {
-            alert('10-2');
-            this.props.dispatch(axiosSetTasksPublicUser());
-            alert('10-3');
+        if (!!this.props.auth.isAuth){
+            alert('ComponentDidMount-tasksDashboard-before-private-2');            
             this.props.dispatch(
                 axiosSetTasksPrivateUser(localStorage.getItem('userToken'))
-            ); //// inja user tokeno az localStorage gereftam va dadam behesh
-            alert('10-4');
+            ); 
+            alert('ComponentDidMount-tasksDashboard-3');
         }
     }
 
     render() { 
+        alert("START-tasksDashbpard-render-1");
         return (
             <div>
                 <TasksList tasks={this.props.tasks} />
@@ -49,6 +46,7 @@ class TasksDashboard extends React.Component {
                 </div>
             </div>
         );
+        alert("END-tasksDashbpard-render-2") ;       
     }
 }
 
