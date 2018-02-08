@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { history } from '../routers/AppRouter';
 import { connect } from 'react-redux';
 
 export const Header = props => {

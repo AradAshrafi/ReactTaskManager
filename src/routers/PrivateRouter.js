@@ -9,7 +9,7 @@ const PrivateRoute = ({ auth, component: Component, ...rest }) => {
         {...rest}
         component={props =>
             !auth.isAuth ? (
-                <Redirect to="/" />
+                <Redirect to="/" />//it's equal to history.push('/')
             ) : (
                 <div>
                     <Header/>

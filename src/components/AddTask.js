@@ -1,6 +1,5 @@
 import React from 'react';
 import TaskForm from './TaskForm';
-import Header from '../components/Header';
 
 export default class AddTask extends React.Component {
     render() { 

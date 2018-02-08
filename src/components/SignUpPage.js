@@ -1,16 +1,13 @@
 import React from 'react';
-import { history } from '../routers/AppRouter';
 import { Link } from 'react-router-dom';
 import { axiosSignUp } from '../lib/server';
-import {connect} from "react-redux";
-//this.props.dipatcho ezafe kardam chon tu axios setAuth zade budam
+import { connect } from 'react-redux';
+
 export class SignUpPage extends React.Component {
     constructor(props) {
         super(props);
-
-        // axiosSignUp.bind(this);
     }
-    state = { 
+    state = {
         error: undefined,
         errorText: undefined,
         success: undefined,
@@ -126,4 +123,4 @@ export class SignUpPage extends React.Component {
     };
 }
 
-export default connect() (SignUpPage);
+export default connect()(SignUpPage);

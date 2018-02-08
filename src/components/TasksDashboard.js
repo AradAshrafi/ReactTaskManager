@@ -1,8 +1,6 @@
 import React from 'react';
-import Route from 'react-router-dom';
 import TasksList from './Taskslist';
 import { Link } from 'react-router-dom';
-import Header from '../components/Header';
 import {
     axiosSetTasksPublicUser,
     axiosSetTasksPrivateUser
@@ -18,9 +16,6 @@ class TasksDashboard extends React.Component {
         this.props.dispatch(
             axiosSetTasksPrivateUser(localStorage.getItem('userToken'))
         );
-    }
-    componentWillUnmount() {
-        this.props.dispatch(setTasks([]));
     }
 
     render() {

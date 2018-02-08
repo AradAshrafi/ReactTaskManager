@@ -1,7 +1,6 @@
 import React from 'react';
 import { DateRangePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
-import { history } from '../routers/AppRouter';
 import moment from 'moment';
 import { axiosAddTask } from '../lib/server';
 import { connect } from 'react-redux';
