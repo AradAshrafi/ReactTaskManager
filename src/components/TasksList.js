@@ -16,7 +16,7 @@ export const TasksList = ({tasks}) => {
                         <p>No Tasks </p>
                     </div>
                 ) : (
-                    tasks.map(task => <TasksListItem key={task.id} {...task} />)
+                    tasks.map(task => <TasksListItem key={task._id} {...task} />) //_id is task's id
                 )}
             </div>
         </div>

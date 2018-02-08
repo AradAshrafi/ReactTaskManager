@@ -1,5 +1,5 @@
 import { server_domain } from './config';
-import { setTasks, addTask } from '../actions/tasks';
+import { setTasks, addTask , removeTask , editTask} from '../actions/tasks';
 import { setAuth } from '../actions/auth';
 import axios from 'axios';
 import {
@@ -77,7 +77,10 @@ export const axiosValidUser = (userToken, callback1, callback2, callback3) => {
                 callback1(callback1Arg);
             })
             .catch(err => {
-                console.log('validation errorResponse in axiosValiduser [unauthorized]', err);
+                console.log(
+                    'validation errorResponse in axiosValiduser [unauthorized]',
+                    err
+                );
                 dispatch(setAuth(false));
                 const callback2Arg = true;
                 callback2(callback2Arg);
@@ -90,13 +93,7 @@ export const axiosSetTasksPublicUser = () => {
         return axios
             .get(`${server_domain}/v1/user/task/showpublic`)
             .then(res => {
-                let tasks = [];
-                res.data.map(x => {
-                    x.id = x._id;
-                    delete x._id;
-                    tasks.push(x);
-                });
-                dispatch(setTasks([...tasks]));
+                dispatch(setTasks([...res.data]));
             })
             .catch(err => {
                 console.log('show public error : ', err);
@@ -111,16 +108,57 @@ export const axiosSetTasksPrivateUser = userToken => {
                 headers: { Authorization: 'Bearer ' + userToken }
             })
             .then(res => {
-                let task = {};
                 res.data.map(x => {
-                    task = x;
-                    task.id = task._id;
-                    delete task._id;
-                    dispatch(addTask(task));
+                    dispatch(addTask(x));
                 });
             })
             .catch(err => {
                 console.log('show private error [unauthorized] : ', err);
+            });
+    };
+};
+
+export const axiosSetProfileTasks = userToken => {
+    return dispatch => {
+        return axios
+            .get(`${server_domain}/v1/user/updatetask/${taskId}`)
+            .then((res) => {
+                console.log('start of setting process')
+                dispatch(setTasks([...res.data]))
+                console.log('successfully updated');
+            })
+            .catch(err => {
+                console.log('set profile tasks error ', err);
+            });
+    };
+};
+
+export const axiosRemoveTask = taskId => {
+    return dispatch => {
+        return axios
+            .delete(`${server_domain}/v1/user/task/deletetask/${taskId}`)
+            .then(() => {
+                console.log('start of deleting process')
+                dispatch(removeTask(taskId))
+                console.log('successfully updated');
+            })
+            .catch(err => {
+                console.log('remove task error ', err);
+            });
+    };
+};
+
+export const axiosEditTask = (taskId, updates) => {
+    return dispatch => {
+        return axios
+            .put(`${server_domain}/v1/user/updatetask/${taskId}`)
+            .then(() => {
+                console.log('start of updating process')
+                dispatch(editTask(taskId,updates))
+                console.log('successfully updated');
+            })
+            .catch(err => {
+                console.log('edit task error ', err);
             });
     };
 };

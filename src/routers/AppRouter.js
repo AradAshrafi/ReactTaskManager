@@ -1,14 +1,15 @@
 import { Router, Route, Switch } from 'react-router-dom';
 import React from 'react';
 import createHistory from 'history/createBrowserHistory';
+import PublicRoute from '../routers/PublicRouter';
+import PrivateRoute from '../routers/PrivateRouter';
 import LoginPage from '../components/LoginPage';
 import SignUpPage from '../components/SignUpPage';
 import TasksDashboard from '../components/TasksDashboard';
 import NotFoundPage from '../components/NotFoundPage';
 import AddTask from '../components/AddTask';
+import UserProfilePage  from '../components/UserProfilePage';
 import { axiosValidUser } from '../lib/server';
-import PublicRoute from '../routers/PublicRouter';
-import PrivateRoute from '../routers/PrivateRouter';
 import { connect } from 'react-redux';
 import { Loading } from '../components/Loading';
 
@@ -55,20 +56,11 @@ class AppRouter extends React.Component {
                     {!this.state.loading && (
                         <Switch>
                             <PrivateRoute path="/create" component={AddTask} />
-                            <PublicRoute
-                                path="/"
-                                component={TasksDashboard}
-                                exact
-                            />
-                            <PrivateRoute
-                                path="/dashboard"
-                                component={TasksDashboard}
-                            />
+                            <PublicRoute path="/" component={TasksDashboard} exact/>
+                            <PrivateRoute path="/dashboard" component={TasksDashboard}  />
                             <PublicRoute path="/login" component={LoginPage} />
-                            <PublicRoute
-                                path="/signup"
-                                component={SignUpPage}
-                            />
+                            <PublicRoute path="/signup" component={SignUpPage} />
+                            <PrivateRoute path="/profile" component={UserProfilePage} />
                             <Route component={NotFoundPage} />
                         </Switch>
                     )}
