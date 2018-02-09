@@ -121,7 +121,9 @@ export const axiosSetTasksPrivateUser = userToken => {
 export const axiosSetProfileTasks = userToken => {
     return dispatch => {
         return axios
-            .get(`${server_domain}/v1/user/updatetask/${userToken}`)
+            .get(`${server_domain}/v1/user/task/usertasks`,{
+                headers: { Authorization: 'Bearer ' + userToken }
+            })
             .then((res) => {
                 console.log('start of setting process')
                 dispatch(setTasks([...res.data]))
@@ -133,10 +135,17 @@ export const axiosSetProfileTasks = userToken => {
     };
 };
 
-export const axiosRemoveTask = taskId => {
+export const axiosRemoveTask = (taskId,userToken) => {
     return dispatch => {
-        return axios
-            .delete(`${server_domain}/v1/user/task/deletetask/${taskId}`)
+        return axios({
+            method: 'delete',
+            url: `${server_domain}/v1/user/task/deletetask/${taskId}`,
+            data: null,
+            // withCredentials: true,
+            headers: { Authorization: 'Bearer ' + userToken },//jason??
+            params: taskId
+            })
+            // .delete(`${server_domain}/v1/user/task/deletetask/${taskId}`)
             .then(() => {
                 console.log('start of deleting process')
                 dispatch(removeTask(taskId))
@@ -148,10 +157,17 @@ export const axiosRemoveTask = taskId => {
     };
 };
 
-export const axiosEditTask = (taskId, updates) => {
+export const axiosEditTask = (taskId, updates,userToken) => {
     return dispatch => {
-        return axios
-            .put(`${server_domain}/v1/user/updatetask/${taskId}`)
+        return axios({
+            method: 'put',
+            url:`${server_domain}/v1/user/task/deletetask/${taskId}`,
+            data: null,
+            // withCredentials: true,
+            headers: { Authorization: 'Bearer ' + userToken },//jason??
+            params: taskId
+            })
+            // .put(`${server_domain}/v1/user/task/deletetask/${taskId}`)
             .then(() => {
                 console.log('start of updating process')
                 dispatch(editTask(taskId,updates))

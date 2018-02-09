@@ -12,8 +12,8 @@ export const ProfileTasksListItem = ({
     access
 }) => {
     return (
-        <div className="list-item">
-            <Link to={`edit/${_id}`}>
+        <Link to={`edit/${_id}`}>
+            <div className="list-item">
                 <div className="list-item-content">
                     <h3>{title}</h3>
                     <h3>{description}</h3>
@@ -28,8 +28,8 @@ export const ProfileTasksListItem = ({
                     </p>
                     <p className="list-item-status">{status}</p>
                 </div>
-            </Link>
-        </div>
+            </div>
+        </Link>
     );
 };
 export default ProfileTasksListItem;
