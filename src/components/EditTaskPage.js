@@ -1,8 +1,6 @@
 import React from 'react'
 import TaskForm from '../components/TaskForm'
 import {connect} from "react-redux"
-import { axiosEditTask } from '../lib/server';
-import { connect } from 'react-redux';
 import {axiosEditTask,axiosRemoveTask} from "../lib/server";
 
 class EditTaskPage extends React.Component{
