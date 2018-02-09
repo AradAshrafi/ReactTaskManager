@@ -121,7 +121,7 @@ export const axiosSetTasksPrivateUser = userToken => {
 export const axiosSetProfileTasks = userToken => {
     return dispatch => {
         return axios
-            .get(`${server_domain}/v1/user/updatetask/${taskId}`)
+            .get(`${server_domain}/v1/user/updatetask/${userToken}`)
             .then((res) => {
                 console.log('start of setting process')
                 dispatch(setTasks([...res.data]))
