@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 export const Header = props => {
-    return(  
+    return (
         <div className="header">
             <div className="content-container">
                 <div className="header__content">
@@ -11,13 +11,23 @@ export const Header = props => {
                         <h1>Task Manager </h1>
                     </Link>
                     {!!props.auth.isAuth ? (
-                        <a
-                            href="/"
-                            className="button"
-                            onClick={()=>localStorage.removeItem('userToken')} //hatman bayad dakhele function benevisim
-                        >
-                            Log Out
-                        </a>
+                        <div>
+                            <Link
+                                to="/profile"
+                                className="button button--link header--button"
+                            >
+                                Profile
+                            </Link>
+                            <a
+                                href="/"
+                                className="button button--link"
+                                onClick={() =>
+                                    localStorage.removeItem('userToken')
+                                } //hatman bayad dakhele function benevisim
+                            >
+                                Log Out
+                            </a>
+                        </div>
                     ) : (
                         <div>
                             <Link
@@ -36,10 +46,8 @@ export const Header = props => {
             </div>
         </div>
     );
-}
-const mapStateToProps=(state)=>({
-    auth:state.auth
-})
-export default connect(mapStateToProps) (Header);
-
-    
+};
+const mapStateToProps = state => ({
+    auth: state.auth
+});
+export default connect(mapStateToProps)(Header);

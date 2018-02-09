@@ -61,7 +61,7 @@ export class SignUpPage extends React.Component {
                                 <span>
                                     do you want to visit tasks as a guest ?{' '}
                                 </span>
-                                <a href="/" className="button">
+                                <a href="/" className="button button--link">
                                     Public Tasks
                                 </a>
                             </div>

@@ -1,56 +1,64 @@
-.list-header{
-    display:flex;
+.list-header {
+    display: flex;
     justify-content: space-between;
-    padding:$s-size $m-size;
-    color:$grey;
-    background-color:lighten($grey,40%);
-    border:1px solid darken($off-white,7%);
+    padding: $s-size $m-size;
+    color: $grey;
+    background-color: lighten($grey, 40%);
+    border: 1px solid darken($off-white, 7%);
 }
-.list-body{
+.list-body {
     margin-bottom: $m-size;
-    @media(min-width:$desktop-breakpoint){
-        margin-bottom:$l-size;
+    @media (min-width: $desktop-breakpoint) {
+        margin-bottom: $l-size;
     }
 }
-.list-item{
-    border:1px solid darken($off-white,7%);
-    border-top:none;
-    padding:$s-size;
-    color:$dark-grey;
-    display:flex;
-    flex-direction:column;
-    text-decoration: none;
-    transition : background .3s ease;
-    & :hover{
-    background:$off-white;
+
+.list-item--hoverHandler {
+    & :hover {
+        background: $off-white;
     }
-    @media(min-width:$desktop-breakpoint){
+}
+
+.list-item {
+    border: 1px solid darken($off-white, 7%);
+    border-top: none;
+    padding: $s-size;
+    color: $dark-grey;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    transition: background 0.3s ease;
+    & .button:hover {
+        background-color: rgb(241, 136, 50);
+    }
+    @media (min-width: $desktop-breakpoint) {
         flex-direction: row;
-        padding:$m-size;
+        padding: $m-size;
         justify-content: space-between;
         align-items: center;
     }
-
+    
 }
-.list-item-content{
+.list-item-content {
     display: flex;
     flex-direction: column;
+    
 }
-.list-item-title{
-    color:$grey;
-    margin:0;
+.list-item-title {
+    color: $grey;
+    margin: 0;
     word-break: break-all;
     font-size: $font-size-small;
 }
-.list-item-description{
-    color:$grey;
+.list-item-description {
+    color: $grey;
     font-size: $font-size-small;
 }
-.list-item-date{
-    color:$grey;
-    font-size: $font-size-small;    
+.list-item-date {
+    color: $grey;
+    font-size: $font-size-small;
 }
-.list-item-status{
-    color:$grey;
+.list-item-status {
+    color: $grey;
     font-size: $font-size-small;
 }

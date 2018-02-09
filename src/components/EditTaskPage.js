@@ -18,7 +18,7 @@ class EditTaskPage extends React.Component{
             <div>
                 <div className="content-container">
                     <div>
-                        <h1>Add Task</h1>
+                        <h1>Edit Task</h1>
                     </div>
                     <div>
                         <TaskForm 
