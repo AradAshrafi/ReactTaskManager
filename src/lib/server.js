@@ -64,7 +64,7 @@ export const axiosAddTask = task => {
         });
 };
 
-export const axiosValidUser = (userToken, callback1, callback2, callback3) => {
+export const axiosValidUser = (userToken, callback1, callback2) => {
     return dispatch => {
         return axios
             .get(`${server_domain}/v1/user/validate`, {
@@ -173,9 +173,9 @@ export const axiosEditTask = (taskId, updates, userToken) => {
             })
                 // .put(`${server_domain}/v1/user/task/deletetask/${taskId}`)
                 .then(res => {
-                    console.log('start of editing process', res);
                     dispatch(editTask(taskId, updates));
                     console.log('successfully updated');
+                    history.push('/profile')
                 })
                 .catch(err => {
                     console.log('edit task error ', err);

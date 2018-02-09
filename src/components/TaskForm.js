@@ -36,15 +36,15 @@ export class TaskForm extends React.Component {
 
         e.preventDefault();
         this.state.currentState === 'adding'
-            ? axiosAddTask({
+            ? (axiosAddTask({
                   title: this.state.title,
                   description: this.state.description,
                   startDate: this.state.startDate,
                   endDate: this.state.endDate,
                   status: this.state.status,
                   access: this.state.access
-              })
-            : axiosEditTask(
+              }))
+            : this.props.dispatch(axiosEditTask(
                   this.props.task._id,
                   {
                       title: this.state.title,
@@ -55,7 +55,7 @@ export class TaskForm extends React.Component {
                       access: this.state.access
                   },
                   localStorage.getItem('userToken')
-              );
+              ));
     };
 
     onTitleChange = e => {
