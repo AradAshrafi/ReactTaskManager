@@ -9,12 +9,12 @@ export class TaskForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            description: props.tasks ? props.tasks.description : '',
-            title: props.tasks ? props.tasks.title : '',
-            startDate: props.tasks ? moment(props.tasks.startDate) : moment(),
-            endDate: props.tasks ? moment(props.tasks.endDate) : moment(),
-            status: props.tasks ? props.tasks.status : 'TODO',
-            access: props.tasks ? props.tasks.access : false,
+            description: props.task ? props.task.description : '',
+            title: props.task ? props.task.title : '',
+            startDate: props.task ? moment(props.task.startDate) : moment(),
+            endDate: props.task ? moment(props.task.endDate) : moment(),
+            status: props.task ? props.task.status : 'TODO',
+            access: props.task ? props.task.access : false,
             calendarFocused: null,
             error: ''
         };

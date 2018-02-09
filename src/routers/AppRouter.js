@@ -9,6 +9,7 @@ import TasksDashboard from '../components/TasksDashboard';
 import NotFoundPage from '../components/NotFoundPage';
 import AddTask from '../components/AddTask';
 import UserProfilePage  from '../components/UserProfilePage';
+import EditTaskPage from '../components/EditTaskPage';
 import { axiosValidUser } from '../lib/server';
 import { connect } from 'react-redux';
 import { Loading } from '../components/Loading';
@@ -61,6 +62,7 @@ class AppRouter extends React.Component {
                             <PublicRoute path="/login" component={LoginPage} />
                             <PublicRoute path="/signup" component={SignUpPage} />
                             <PrivateRoute path="/profile" component={UserProfilePage} />
+                            <PrivateRoute path="/edit/:id" component={EditTaskPage} />
                             <Route component={NotFoundPage} />
                         </Switch>
                     )}

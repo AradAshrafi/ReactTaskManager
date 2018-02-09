@@ -1,9 +1,8 @@
 import React from 'react';
 import moment from 'moment';
-import { Link } from 'react-router-dom';
 
 export const TasksListItem = ({
-    id,
+    _id,
     title,
     description,
     startDate,

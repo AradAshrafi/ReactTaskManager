@@ -10,7 +10,6 @@ import { setTasks } from '../actions/tasks';
 
 class TasksDashboard extends React.Component {
     componentWillMount() {
-        console.log('props in Tasksdashboard', this.props);
         this.props.dispatch(setTasks({}));
         this.props.dispatch(axiosSetTasksPublicUser());
         this.props.dispatch(
@@ -21,7 +20,7 @@ class TasksDashboard extends React.Component {
     render() {
         return (
             <div>
-                <TasksList tasks={this.props.tasks} />
+                <TasksList />
                 <div className="content-container">
                     {!!this.props.auth.isAuth ? (
                         <Link
@@ -45,7 +44,6 @@ class TasksDashboard extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    tasks: state.tasks,
     auth: state.auth
 });
 export default connect(mapStateToProps)(TasksDashboard);
