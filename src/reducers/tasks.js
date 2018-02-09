@@ -8,6 +8,7 @@ export default (state = defaultState, action) => {
         case 'EDIT_EXPENSE':
             return state.map(x => {
                 if (x._id === action._id) {
+                    console.log('int reducer : ' , x._id);
                     return {
                         ...x,
                         ...action.update

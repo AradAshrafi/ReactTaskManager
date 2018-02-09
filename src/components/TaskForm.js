@@ -3,13 +3,14 @@ import thunk from 'redux-thunk';
 import { DateRangePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import moment from 'moment';
-import { axiosAddTask } from '../lib/server';
+import { axiosAddTask, axiosEditTask } from '../lib/server';
 import { connect } from 'react-redux';
 
 export class TaskForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            currentState: props.task ? 'editing' : 'adding',
             description: props.task ? props.task.description : '',
             title: props.task ? props.task.title : '',
             startDate: props.task ? moment(props.task.startDate) : moment(),
@@ -19,6 +20,7 @@ export class TaskForm extends React.Component {
             calendarFocused: null,
             error: ''
         };
+        console.log(this.state.currentState,'props : ',this.props);
     }
 
     onSubmit = e => {
@@ -33,14 +35,27 @@ export class TaskForm extends React.Component {
         // });
 
         e.preventDefault();
-        axiosAddTask({
-            title: this.state.title,
-            description: this.state.description,
-            startDate: this.state.startDate,
-            endDate: this.state.endDate,
-            status: this.state.status,
-            access: this.state.access
-        });
+        this.state.currentState === 'adding'
+            ? axiosAddTask({
+                  title: this.state.title,
+                  description: this.state.description,
+                  startDate: this.state.startDate,
+                  endDate: this.state.endDate,
+                  status: this.state.status,
+                  access: this.state.access
+              })
+            : axiosEditTask(
+                  this.props.task._id,
+                  {
+                      title: this.state.title,
+                      description: this.state.description,
+                      startDate: this.state.startDate,
+                      endDate: this.state.endDate,
+                      status: this.state.status,
+                      access: this.state.access
+                  },
+                  localStorage.getItem('userToken')
+              );
     };
 
     onTitleChange = e => {

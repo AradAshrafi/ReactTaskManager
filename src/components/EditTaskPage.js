@@ -7,12 +7,12 @@ class EditTaskPage extends React.Component{
     RemoveAction = () => {
         this.props.dispatch(axiosRemoveTask(this.props._id, localStorage.getItem("userToken")));
     }
-    onSubmit=()=>{
-        const task=this.props.task;
-        const taskId=this.props.task._id;
-        const userToken=localStorage.getItem('usertoken');
-        this.props.dispatch(axiosEditTask(taskId,task,userToken));
-    }
+    // onSubmit=()=>{
+    //     const task=this.props.task;
+    //     const taskId=this.props.task._id;
+    //     const userToken=localStorage.getItem('usertoken');
+    //     this.props.dispatch(axiosEditTask(taskId,task,userToken));
+    // }
     render(){
         return(
             <div>
@@ -22,8 +22,8 @@ class EditTaskPage extends React.Component{
                     </div>
                     <div>
                         <TaskForm 
-                        task={Props.task}
-                        onSubmit={this.onSubmit}
+                        task={this.props.task}
+                        // onSubmit={this.onSubmit}
                         />
                         <button 
                             className="button button--secondary"
@@ -41,7 +41,7 @@ class EditTaskPage extends React.Component{
 const mapStateToProps =(state,props) => {
     return {
         task:state.tasks.find((task)=>{
-            return task._id==props.match.params.id;
+            return task._id===props.match.params.id;
         })
     }
 }
