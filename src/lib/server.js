@@ -139,7 +139,7 @@ export const axiosRemoveTask = (taskId,userToken) => {
     return dispatch => {
         return axios({
             method: 'delete',
-            url: `${server_domain}/v1/user/task/deletetask/${taskId}`,
+            url: `${server_domain}/v1/user/task/delete/${taskId}`,
             data: null,
             // withCredentials: true,
             headers: { Authorization: 'Bearer ' + userToken },//jason??
@@ -147,11 +147,15 @@ export const axiosRemoveTask = (taskId,userToken) => {
             })
             // .delete(`${server_domain}/v1/user/task/deletetask/${taskId}`)
             .then(() => {
+        alert("ok");
+                
                 console.log('start of deleting process')
                 dispatch(removeTask(taskId))
                 console.log('successfully updated');
             })
             .catch(err => {
+        alert("NoTok");
+                
                 console.log('remove task error ', err);
             });
     };
@@ -161,7 +165,7 @@ export const axiosEditTask = (taskId, updates,userToken) => {
     return dispatch => {
         return axios({
             method: 'put',
-            url:`${server_domain}/v1/user/task/deletetask/${taskId}`,
+            url:`${server_domain}/v1/user/task/updatetask/${taskId}`,
             data: null,
             // withCredentials: true,
             headers: { Authorization: 'Bearer ' + userToken },//jason??
