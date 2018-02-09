@@ -139,7 +139,7 @@ export const axiosRemoveTask = (taskId,userToken) => {
     return dispatch => {
         return axios({
             method: 'delete',
-            url: `${server_domain}/v1/user/task/delete/${taskId}`,
+            url: `${server_domain}/v1/user/task/deletetask/${taskId}`,
             data: null,
             // withCredentials: true,
             headers: { Authorization: 'Bearer ' + userToken },//jason??
@@ -166,7 +166,7 @@ export const axiosEditTask = (taskId, updates,userToken) => {
         return axios({
             method: 'put',
             url:`${server_domain}/v1/user/task/updatetask/${taskId}`,
-            data: null,
+            data: updates,
             // withCredentials: true,
             headers: { Authorization: 'Bearer ' + userToken },//jason??
             params: taskId
