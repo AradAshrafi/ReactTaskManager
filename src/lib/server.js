@@ -147,9 +147,10 @@ export const axiosRemoveTask = (taskId, userToken) => {
                 params: taskId
             })
                 // .delete(`${server_domain}/v1/user/task/deletetask/${taskId}`)
-                .then(() => {
-                    console.log('start of deleting process');
+                .then((res) => {
+                    console.log('start of deleting process',res,' ');
                     dispatch(removeTask(taskId));
+                    history.push('/profile');
                     console.log('successfully updated');
                 })
                 .catch(err => {
@@ -160,7 +161,6 @@ export const axiosRemoveTask = (taskId, userToken) => {
 };
 
 export const axiosEditTask = (taskId, updates, userToken) => {
-    console.log('edit is starting ... ');
     return dispatch => {
         return (
             axios({
@@ -174,7 +174,6 @@ export const axiosEditTask = (taskId, updates, userToken) => {
                 // .put(`${server_domain}/v1/user/task/deletetask/${taskId}`)
                 .then(res => {
                     dispatch(editTask(taskId, updates));
-                    console.log('successfully updated');
                     history.push('/profile')
                 })
                 .catch(err => {
