@@ -7,8 +7,13 @@ import {
 } from '../lib/server';
 import { connect } from 'react-redux';
 import { setTasks } from '../actions/tasks';
-
+import {axiosPayment} from '../lib/server';
+import PhoneNumModal from './PhoneNumModal'
 class TasksDashboard extends React.Component {
+    state={
+        addTaskState:false
+    }
+
     componentWillMount() {
         this.props.dispatch(setTasks({}));
         this.props.dispatch(axiosSetTasksPublicUser());
@@ -17,18 +22,37 @@ class TasksDashboard extends React.Component {
         );
     }
 
+    onClick = (e) =>{
+        e.preventDefault()
+        this.setState(()=>{
+            return{
+                addTaskState:true
+            }
+        })
+    }
+
+    closeModal=(e)=>{
+        e.preventDefault()
+        this.setState(()=>{
+            return{
+                addTaskState:false
+            }
+        })
+    }
+
     render() {
         return (
             <div>
                 <TasksList />
                 <div className="content-container">
                     {!!this.props.auth.isAuth ? (
-                        <Link
+                        <button
+                            onClick={this.onClick}
                             to="/create"
                             className="button button--link button--cover"
                         >
                             Add task
-                        </Link>
+                        </button>
                     ) : (
                         <Link
                             to="/login"
@@ -37,6 +61,7 @@ class TasksDashboard extends React.Component {
                             Add task
                         </Link>
                     )}
+                    <PhoneNumModal closeModal={this.closeModal} addTaskState={this.state.addTaskState} />
                 </div>
             </div>
         );

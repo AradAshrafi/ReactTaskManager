@@ -147,8 +147,8 @@ export const axiosRemoveTask = (taskId, userToken) => {
                 params: taskId
             })
                 // .delete(`${server_domain}/v1/user/task/deletetask/${taskId}`)
-                .then((res) => {
-                    console.log('start of deleting process',res,' ');
+                .then(res => {
+                    console.log('start of deleting process', res, ' ');
                     dispatch(removeTask(taskId));
                     history.push('/profile');
                     console.log('successfully updated');
@@ -174,11 +174,38 @@ export const axiosEditTask = (taskId, updates, userToken) => {
                 // .put(`${server_domain}/v1/user/task/deletetask/${taskId}`)
                 .then(res => {
                     dispatch(editTask(taskId, updates));
-                    history.push('/profile')
+                    history.push('/profile');
                 })
                 .catch(err => {
                     console.log('edit task error ', err);
                 })
         );
     };
+};
+
+export const axiosPayment = (api, amount, redirect, mobile) => {
+    axios
+        .post(
+            'https://pay.ir/payment/send',
+            {
+                api,
+                amount,
+                redirect,
+                mobile
+            },
+            {
+                headers:{
+                    'enctype': 'multipart/form-data',
+                    'Content-Type': undefined,
+                    'Access-Control-Allow-Origin': '*'
+                }
+            }
+        )
+        .then(res => {
+            console.log(res);
+            return res.data['status'];
+        })
+        .catch(err => {
+            console.log(err);
+        });
 };
