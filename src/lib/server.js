@@ -14,6 +14,8 @@ import {
     withAxios
 } from 'react-axios';
 import { history } from '../routers/AppRouter';
+import formUrlencoded from 'form-urlencoded';
+// var formU =require("form-urlencoded");
 
 export const axiosSignUp = user => {
     return dispatch => {
@@ -184,21 +186,29 @@ export const axiosEditTask = (taskId, updates, userToken) => {
 };
 
 export const axiosPayment = (api, amount, redirect, mobile) => {
+    const x=formUrlencoded( {"api":api,
+    "amount":amount,
+    "redirect":redirect,
+    "mobile":mobile
+})
+       
     axios
+    // ({
+    //     method:"POST",
+    //     url:"https://pay.ir/payment/send",
+    //     data:{
+    //                 api:'test',
+    //                 amount,
+    //                 redirect,
+    //                 mobile
+    //             },
+    //     headers:{"Content-Type": "application/x-www-form-urlencoded"}
+    // })
         .post(
             'https://pay.ir/payment/send',
+            x,
             {
-                api,
-                amount,
-                redirect,
-                mobile
-            },
-            {
-                headers:{
-                    'enctype': 'multipart/form-data',
-                    'Content-Type': undefined,
-                    'Access-Control-Allow-Origin': '*'
-                }
+                headers:{"Content-Type":"application/x-www-form-urlencoded"}
             }
         )
         .then(res => {
