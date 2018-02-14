@@ -3,12 +3,12 @@ import Modal from 'react-modal';
 import { axiosPayment } from '../lib/server';
 import { server_domain } from '../lib/config';
 import { connect } from 'react-redux';
+import {history} from '../routers/AppRouter';
 
-
- class PhoneNumModal extends React.Component {
+class PhoneNumModal extends React.Component {
     state = {
         phoneNum: '',
-        amount:5000
+        amount: 5000
     };
     onPhoneNumChange = e => {
         const phoneNum = e.target.value;
@@ -22,8 +22,7 @@ import { connect } from 'react-redux';
             amount
         }));
     };
-    
-    
+
     submitAndMakeModalGo = e => {
         e.preventDefault();
         const api = 'test';
@@ -65,16 +64,23 @@ import { connect } from 'react-redux';
                 <button onClick={this.submitAndMakeModalGo} className="button">
                     done
                 </button>
-                <button onClick={this.props.closeModal} className="button">
-                    close
-                </button>
+                {history.location.pathname == '/profile' && (
+                    <button onClick={this.props.closeModal} className="button">
+                        close
+                    </button>
+                )}
+                {history.location.pathname == '/create' && (
+                    <button onClick={this.props.closeModal} className="button">
+                        Profile
+                    </button>
+                )}
             </Modal>
         );
     }
 }
-const mapStateToProps=(state)=>({
+const mapStateToProps = state => ({
     // wallet:state.auth.wallet
-    wallet:5000
-})
+    wallet: 5000
+});
 
-export default connect (mapStateToProps)(PhoneNumModal);
+export default connect(mapStateToProps)(PhoneNumModal);
