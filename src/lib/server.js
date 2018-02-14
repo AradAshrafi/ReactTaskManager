@@ -221,7 +221,7 @@ export const axiosPayment = (api, amount, redirect, mobile) => {
             window.location.assign(`https://pay.ir/payment/gateway/${res.data.transId}`)
         })
         .catch(err => {
-            console.log("pokhj");            
+            console.log("pokh");            
             
             console.log(JSON.stringify(err));
         });
@@ -234,6 +234,7 @@ export const axiosVerify =(transId)=>{
         transId
     }).then(res =>{
         console.log("ok");
+        // axios.get()
     }
     ).catch(err => {
         console.log("not ok");
