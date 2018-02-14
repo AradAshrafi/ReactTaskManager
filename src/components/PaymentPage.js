@@ -1,9 +1,12 @@
 import React from 'react';
-
+import {axiosVerify} from "../lib/server"
 class PaymentPage extends React.Component {
+    componentWillMount(){
+        const transId=this.props.match.params.transId;
+        axiosVerify(transId,status);
+    }
     render() {
-        console.log(this.props.match.params);
-        return this.props.match.params.status ? (
+        return (this.props.match.params.status=="1") ? (
             <div>
                 <p>پرداخت موفق </p>
                 <p> شماره تراکنش: {this.props.match.params.transId}</p>

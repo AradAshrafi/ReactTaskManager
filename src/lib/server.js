@@ -214,12 +214,29 @@ export const axiosPayment = (api, amount, redirect, mobile) => {
             }
         })
         .then(res => {
+            console.log("ok shod");            
             console.log(res);
             console.log('x is  : ', x)
             
             window.location.assign(`https://pay.ir/payment/gateway/${res.data.transId}`)
         })
         .catch(err => {
+            console.log("pokhj");            
+            
             console.log(JSON.stringify(err));
         });
 };
+
+export const axiosVerify =(transId)=>{
+
+    axios.post("https://pay.ir/payment/verify",{
+        api:"test",
+        transId
+    }).then(res =>{
+        console.log("ok");
+    }
+    ).catch(err => {
+        console.log("not ok");
+
+    })
+}
