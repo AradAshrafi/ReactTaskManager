@@ -1,6 +1,7 @@
 import { server_domain } from './config';
 import { setTasks, addTask, removeTask, editTask } from '../actions/tasks';
 import { setAuth } from '../actions/auth';
+import {Redirect} from 'react-router-dom';
 import axios from 'axios';
 import {
     AxiosProvider,
@@ -186,36 +187,39 @@ export const axiosEditTask = (taskId, updates, userToken) => {
 };
 
 export const axiosPayment = (api, amount, redirect, mobile) => {
-    const x=formUrlencoded( {"api":api,
-    "amount":amount,
-    "redirect":redirect,
-    "mobile":mobile
-})
-       
+    const x = formUrlencoded({
+        api: api,
+        amount: amount,
+        redirect: redirect,
+        mobile: mobile
+    });
+
     axios
-    // ({
-    //     method:"POST",
-    //     url:"https://pay.ir/payment/send",
-    //     data:{
-    //                 api:'test',
-    //                 amount,
-    //                 redirect,
-    //                 mobile
-    //             },
-    //     headers:{"Content-Type": "application/x-www-form-urlencoded"}
-    // })
-        .post(
-            'https://pay.ir/payment/send',
-            x,
-            {
-                headers:{"Content-Type":"application/x-www-form-urlencoded"}
+        // ({
+        //     method:"POST",
+        //     url:"https://pay.ir/payment/send",
+        //     data:{
+        //                 api:'test',
+        //                 amount,
+        //                 redirect,
+        //                 mobile
+        //             },
+        //     headers:{"Content-Type": "application/x-www-form-urlencoded"}
+        // })
+        .post('https://pay.ir/payment/send', x, {
+            headers: {
+                // 'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/x-www-form-urlencoded'
+                // "Content-Type" : "application/JSONP"
             }
-        )
+        })
         .then(res => {
             console.log(res);
-            return res.data['status'];
+            console.log('x is  : ', x)
+            
+            window.location.assign(`https://pay.ir/payment/gateway/${res.data.transId}`)
         })
         .catch(err => {
-            console.log(err);
+            console.log(JSON.stringify(err));
         });
 };

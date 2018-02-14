@@ -1,6 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 import { axiosPayment } from '../lib/server';
+import {server_domain} from '../lib/config';
 
 export default class PhoneNumModal extends React.Component {
     state = {
@@ -16,7 +17,7 @@ export default class PhoneNumModal extends React.Component {
         e.preventDefault();
         const api="test";
         const amount=5000;
-        const redirect = "";
+        const redirect = `${server_domain}/v1/user/task/payment`
         const mobile = this.state.phoneNum;
         axiosPayment(api,amount,redirect,mobile);
     };
