@@ -17,6 +17,7 @@ export class TaskForm extends React.Component {
             endDate: props.task ? moment(props.task.endDate) : moment(),
             status: props.task ? props.task.status : 'TODO',
             access: props.task ? props.task.access : false,
+            // amount:props.task ? props.task.amount :0,
             calendarFocused: null,
             error: ''
         };
@@ -92,6 +93,11 @@ export class TaskForm extends React.Component {
             access
         }));
     };
+    // onAmountChange = e => {
+    //     const amount = e.target.value;
+    //     this.setState(() => ({ amount }));
+    // };
+
 
     render() {
         return (
@@ -142,6 +148,15 @@ export class TaskForm extends React.Component {
                             <option value="DONE">Done</option>
                         </select>
                     </div>
+                    {/* <div className="input-group__item">
+                        <input
+                            className="text-input"
+                            placeholder="description"
+                            type="text"
+                            value={this.state.amount}
+                            onChange={this.onAmountChange}
+                        />
+                    </div> */}
                 </div>
                 <div className="input-group">
                     <div className="input-group__item">
