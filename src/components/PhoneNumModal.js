@@ -2,8 +2,10 @@ import React from 'react';
 import Modal from 'react-modal';
 import { axiosPayment } from '../lib/server';
 import { server_domain } from '../lib/config';
+import { connect } from 'react-redux';
 
-export default class PhoneNumModal extends React.Component {
+
+ class PhoneNumModal extends React.Component {
     state = {
         phoneNum: '',
         amount:5000
@@ -40,7 +42,7 @@ export default class PhoneNumModal extends React.Component {
                 className="modal"
             >
                 <h3>account balance : </h3>
-                <p>sth</p>
+                <p>{this.props.wallet}</p>
                 <h3 className="modal__title">
                     Phone Number ( For Bank Messages ) :
                 </h3>
@@ -70,3 +72,9 @@ export default class PhoneNumModal extends React.Component {
         );
     }
 }
+const mapStateToProps=(state)=>({
+    // wallet:state.auth.wallet
+    wallet:5000
+})
+
+export default connect (mapStateToProps)(PhoneNumModal);

@@ -1,6 +1,6 @@
 import { server_domain } from './config';
 import { setTasks, addTask, removeTask, editTask } from '../actions/tasks';
-import { setAuth } from '../actions/auth';
+import { setAuth, setUserId } from '../actions/auth';
 import {Redirect} from 'react-router-dom';
 import axios from 'axios';
 import {
@@ -75,7 +75,9 @@ export const axiosValidUser = (userToken, callback1, callback2) => {
             })
             .then(res => {
                 const isAuth = !!res.data.isValid;
-                dispatch(setAuth(isAuth));
+                // const wallet = res.data.wallet; ///////// ??????
+                const wallet =5000;
+                dispatch(setAuth(isAuth,wallet));
                 const callback1Arg = true;
                 callback1(callback1Arg);
             })
@@ -97,6 +99,7 @@ export const axiosSetTasksPublicUser = () => {
             .get(`${server_domain}/v1/user/task/showpublic`)
             .then(res => {
                 dispatch(setTasks([...res.data]));
+                // dispatch(setUserId(res.data.userId));/////   ??????????
             })
             .catch(err => {
                 console.log('show public error : ', err);

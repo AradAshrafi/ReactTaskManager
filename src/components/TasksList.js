@@ -16,7 +16,12 @@ export const TasksList = ({tasks}) => {
                         <p>No Tasks </p>
                     </div>
                 ) : (
-                    tasks.map(task => <TasksListItem key={task._id} {...task} />) //_id is task's id
+                    tasks.map(task =>{ 
+                            // if(task.userId==userId){
+                                 return (<TasksListItem key={task._id} {...task} />)
+                            // }
+                        }
+                    ) //_id is task's id
                 )}
             </div>
         </div>
@@ -24,7 +29,8 @@ export const TasksList = ({tasks}) => {
 };
 
 const mapStateToProps = state => ({ 
-    tasks: state.tasks
+    tasks: state.tasks,
+    // userId:state.auth.userId
 });
 
 export default connect(mapStateToProps)(TasksList);
