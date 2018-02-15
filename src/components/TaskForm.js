@@ -168,7 +168,7 @@ export class TaskForm extends React.Component {
                         <input
                             className="text-input"
                             placeholder="Price of the task"
-                            type="nnumber"
+                            type="number"
                             value={this.state.amount}
                             onChange={this.onAmountChange}
                         />

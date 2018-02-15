@@ -1,15 +1,22 @@
 import React from 'react';
-import {axiosVerify} from "../lib/server"
+import {axiosVerify , axiosServerPaymentUpdate} from "../lib/server"
 import {history} from '../routers/AppRouter';
+import { connect } from 'react-redux';
 class PaymentPage extends React.Component {
     componentWillMount(){
         const transId=this.props.match.params.transId;
-        axiosVerify(transId,status);
+        const status=this.props.match.params.status; 
+        const userId= this.props.userId;
+        console.log('cheeeck   ' ,userId,status);
+        status==="1" ? axiosVerify(userId,transId) : axiosServerPaymentUpdate(0,userId,status,transId);
     }
     onClick=e =>{
         e.preventDefault();
-        const transId=this.props.match.params.transId;        
         history.push(`/create`);
+    }
+    onReturnClick =(e)=>{
+        e.preventDefault();
+        history.push("/profile");        
     }
     render() {
         return (this.props.match.params.status=="1") ? (
@@ -22,9 +29,13 @@ class PaymentPage extends React.Component {
             <div>
             <p>پرداخت ناموفق</p>
             <p>شماره تراکنش : {this.props.match.params.transId}</p>
+            <button onClick={this.onReturnClick}> بازگشت به صفحه پروفایل </button>            
             </div>
         );
     }
 }
 
-export default PaymentPage;
+const mapStateToProps =(state)=>({
+    userId:state.auth.userId
+})
+export default connect (mapStateToProps)(PaymentPage);

@@ -228,17 +228,39 @@ export const axiosPayment = (api, amount, redirect, mobile) => {
         });
 };
 
-export const axiosVerify =(transId)=>{
+export const axiosServerPaymentUpdate = (amount,userId,status,transId)=>{
+    const x={
+        amount,
+        userId,
+        status,
+        transId
+    }
+
+    axios.put(`${server_domain}/v1/user/`,x).then(res =>{
+        console.log('server verification succeeded');
+    }).catch(err=>{
+        console.log('server verification error');
+        alert('internet error,refresh to complete this action') ;   
+    })
+}
+export const axiosVerify =(userId,transId)=>{
 
     axios.post("https://pay.ir/payment/verify",{
         api:"test",
         transId
     }).then(res =>{
         console.log("ok");
-        // axios.get()
+        console.log(res);
+        const amount=res.data.amount;
+        const status=res.data.status;
+        axiosServerPaymentUpdate(amount,userId,status,transId);
     }
     ).catch(err => {
         console.log("not ok");
-
+        console.log(JSON.stringify(err));
+        const status=err.data.status;
+        axiosServerPaymentUpdate(0,userId,status,transId);
+        history.push(`/payment/${status}/${transId}`);
     })
 }
+

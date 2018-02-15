@@ -5,9 +5,9 @@ import { history } from '../routers/AppRouter';
 
 export class TasksListItem extends React.Component {
 
-    // buy=()=>{
-
-    // }
+    buy=()=>{
+        
+    }
 
     render() {
         return (
@@ -16,7 +16,6 @@ export class TasksListItem extends React.Component {
                     <h3>{this.props.title}</h3>
                     <h3>{this.props.description}</h3>
                     <p>Price {this.props.amount}</p>
-                    <p>kirrr</p>
                 </div>
                 <div className="list-item-content">
                     <p className="list-item-date">
