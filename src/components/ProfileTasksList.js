@@ -7,7 +7,6 @@ export const ProfileTasksList = ({tasks}) => {
         <div className="content-container content-container--tasksList">
             <div  className="list-header">
                 <div>Task</div>
-                {/*for styling*/}
                 <div>Date</div>
             </div>
             <div className="list-body">

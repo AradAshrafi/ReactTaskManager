@@ -1,9 +1,6 @@
-export const setAuth=(isAuth,wallet)=>({
+export const setAuth=(isAuth,wallet,userId)=>({
     type:"SET_AUTH",
     isAuth,
-    wallet
-});
-export const setUserId=(userId)=>{
-    type:"SET_ID",
+    wallet,
     userId
-}
+});

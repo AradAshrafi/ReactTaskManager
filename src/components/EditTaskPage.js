@@ -32,7 +32,7 @@ class EditTaskPage extends React.Component {
                             className="button button--secondary"
                             onClick={this.RemoveAction}
                         >
-                            Remove expense
+                            Remove task
                         </button>
                     </div>
                 </div>

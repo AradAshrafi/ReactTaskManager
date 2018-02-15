@@ -79,8 +79,7 @@ class PhoneNumModal extends React.Component {
     }
 }
 const mapStateToProps = state => ({
-    // wallet:state.auth.wallet
-    wallet: 5000
+    wallet:state.auth.wallet
 });
 
 export default connect(mapStateToProps)(PhoneNumModal);

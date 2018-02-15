@@ -17,11 +17,11 @@ export class TaskForm extends React.Component {
             endDate: props.task ? moment(props.task.endDate) : moment(),
             status: props.task ? props.task.status : 'TODO',
             access: props.task ? props.task.access : false,
-            // amount:props.task ? props.task.amount :0,
+            amount: props.task ? props.task.amount : 0,
             calendarFocused: null,
             error: ''
         };
-        console.log(this.state.currentState,'props : ',this.props);
+        console.log(this.state.currentState, 'props : ', this.props);
     }
 
     onSubmit = e => {
@@ -38,25 +38,27 @@ export class TaskForm extends React.Component {
         e.preventDefault();
         this.state.currentState === 'adding'
             ? (axiosAddTask({
-                  title: this.state.title,
-                  description: this.state.description,
-                  startDate: this.state.startDate,
-                  endDate: this.state.endDate,
-                  status: this.state.status,
-                  access: this.state.access
-              }))
+                title: this.state.title,
+                description: this.state.description,
+                startDate: this.state.startDate,
+                endDate: this.state.endDate,
+                status: this.state.status,
+                access: this.state.access,
+                amount: this.state.amount
+            }))
             : this.props.dispatch(axiosEditTask(
-                  this.props.task._id,
-                  {
-                      title: this.state.title,
-                      description: this.state.description,
-                      startDate: this.state.startDate,
-                      endDate: this.state.endDate,
-                      status: this.state.status,
-                      access: this.state.access
-                  },
-                  localStorage.getItem('userToken')
-              ));
+                this.props.task._id,
+                {
+                    title: this.state.title,
+                    description: this.state.description,
+                    startDate: this.state.startDate,
+                    endDate: this.state.endDate,
+                    status: this.state.status,
+                    access: this.state.access,
+                    amount: this.state.amount
+                },
+                localStorage.getItem('userToken')
+            ));
     };
 
     onTitleChange = e => {
@@ -93,10 +95,10 @@ export class TaskForm extends React.Component {
             access
         }));
     };
-    // onAmountChange = e => {
-    //     const amount = e.target.value;
-    //     this.setState(() => ({ amount }));
-    // };
+    onAmountChange = e => {
+        const amount = e.target.value;
+        this.setState(() => ({ amount }));
+    };
 
 
     render() {
@@ -148,15 +150,6 @@ export class TaskForm extends React.Component {
                             <option value="DONE">Done</option>
                         </select>
                     </div>
-                    {/* <div className="input-group__item">
-                        <input
-                            className="text-input"
-                            placeholder="description"
-                            type="text"
-                            value={this.state.amount}
-                            onChange={this.onAmountChange}
-                        />
-                    </div> */}
                 </div>
                 <div className="input-group">
                     <div className="input-group__item">
@@ -172,8 +165,17 @@ export class TaskForm extends React.Component {
                         />
                     </div>
                     <div className="input-group__item">
-                        <button className="button">Save Task</button>
+                        <input
+                            className="text-input"
+                            placeholder="Price of the task"
+                            type="nnumber"
+                            value={this.state.amount}
+                            onChange={this.onAmountChange}
+                        />
                     </div>
+                </div>
+                <div className="input-group">
+                    <button className="button button--link button--cover">Save Task</button>
                 </div>
             </form>
         );

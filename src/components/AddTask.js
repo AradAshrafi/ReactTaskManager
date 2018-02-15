@@ -41,8 +41,7 @@ class AddTask extends React.Component {
     }
 }
 const mapStateToProps = state => ({
-    // wallet:state.auth.wallet
-    wallet: 4000
+    wallet:state.auth.wallet
 });
 
 export default connect(mapStateToProps)(AddTask);

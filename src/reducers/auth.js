@@ -3,11 +3,7 @@ export default (state={},action)=>{
         case "SET_AUTH":
             return {
                 isAuth:action.isAuth,
-                wallet:action.wallet
-            };
-        case "SET_ID":
-            return {
-                ...state,
+                wallet:action.wallet,
                 userId:action.userId
             };
         default:

@@ -16,7 +16,6 @@ import {
 } from 'react-axios';
 import { history } from '../routers/AppRouter';
 import formUrlencoded from 'form-urlencoded';
-// var formU =require("form-urlencoded");
 
 export const axiosSignUp = user => {
     return dispatch => {
@@ -75,9 +74,9 @@ export const axiosValidUser = (userToken, callback1, callback2) => {
             })
             .then(res => {
                 const isAuth = !!res.data.isValid;
-                // const wallet = res.data.wallet; ///////// ??????
-                const wallet =5000;
-                dispatch(setAuth(isAuth,wallet));
+                const wallet = res.data.wallet; 
+                const userId=res.data.userId
+                dispatch(setAuth(isAuth,wallet,userId));
                 const callback1Arg = true;
                 callback1(callback1Arg);
             })
@@ -99,7 +98,6 @@ export const axiosSetTasksPublicUser = () => {
             .get(`${server_domain}/v1/user/task/showpublic`)
             .then(res => {
                 dispatch(setTasks([...res.data]));
-                // dispatch(setUserId(res.data.userId));/////   ??????????
             })
             .catch(err => {
                 console.log('show public error : ', err);

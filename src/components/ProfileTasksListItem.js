@@ -19,7 +19,8 @@ export class ProfileTasksListItem extends React.Component {
             startDate,
             endDate,
             status,
-            access
+            access,
+            amount  
         } = this.props;
         return (
             <div>
@@ -30,6 +31,7 @@ export class ProfileTasksListItem extends React.Component {
                                 <h3>{title}</h3>
                                 <h3>{description}</h3>
                                 <p>{access ? 'Public' : 'Private'}</p>
+                                <p>Price :{amount}</p> 
                             </div>
                             <div className="list-item-content">
                                 <p className="list-item-date">
