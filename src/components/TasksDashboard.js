@@ -12,9 +12,9 @@ class TasksDashboard extends React.Component {
     componentWillMount() {
         this.props.dispatch(setTasks({}));
         this.props.dispatch(axiosSetTasksPublicUser());
-        this.props.dispatch(
-            axiosSetTasksPrivateUser(localStorage.getItem('userToken'))
-        );
+        // this.props.dispatch(
+        //     axiosSetTasksPrivateUser(localStorage.getItem('userToken'))
+        // );
     }
 
     render() {

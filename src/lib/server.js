@@ -236,7 +236,9 @@ export const axiosServerPaymentUpdate = (amount, userId, status, transId) => {
     };
 
     axios
-        .put(`${server_domain}/v1/user/account/updateinfo`, x)
+        .put(`${server_domain}/v1/user/account/updateinfo`, x,{
+            headers: { Authorization: 'Bearer ' + userToken }
+        })
         .then(res => {
             console.log('server verification succeeded');
         })

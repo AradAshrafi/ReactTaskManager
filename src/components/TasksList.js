@@ -16,7 +16,7 @@ export const TasksList = ({tasks,userId}) => {
                     </div>
                 ) : (
                     tasks.map(task =>{ 
-                            if(task.userId==userId){
+                            if(task.userId!==userId){
                                  return (<TasksListItem key={task._id} {...task} />)
                             }
                         }
