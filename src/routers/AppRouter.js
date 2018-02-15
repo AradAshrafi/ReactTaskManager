@@ -11,6 +11,8 @@ import AddTask from '../components/AddTask';
 import UserProfilePage  from '../components/UserProfilePage';
 import EditTaskPage from '../components/EditTaskPage';
 import PaymentPage from '../components/PaymentPage';
+import CartPage from '../components/CartPage';
+import FactorPage from '../components/FactorPage';
 import { axiosValidUser } from '../lib/server';
 import { connect } from 'react-redux';
 import { Loading } from '../components/Loading';
@@ -63,6 +65,8 @@ class AppRouter extends React.Component {
                             <PublicRoute path="/login" component={LoginPage} />
                             <PublicRoute path="/signup" component={SignUpPage} />
                             <PrivateRoute path="/profile" component={UserProfilePage} />
+                            <PrivateRoute path="/cart" component={CartPage} /> 
+                            <PrivateRoute path="/factor" component={FactorPage} />                                                                                   
                             <PrivateRoute path="/edit/:id" component={EditTaskPage} />
                             <PrivateRoute path="/payment/:status/:transId" component={PaymentPage} />
                             <Route component={NotFoundPage} />

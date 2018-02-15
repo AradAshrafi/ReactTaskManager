@@ -1,7 +1,7 @@
 import { server_domain } from './config';
 import { setTasks, addTask, removeTask, editTask } from '../actions/tasks';
 import { setAuth, setUserId } from '../actions/auth';
-import {Redirect} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import {
     AxiosProvider,
@@ -74,9 +74,9 @@ export const axiosValidUser = (userToken, callback1, callback2) => {
             })
             .then(res => {
                 const isAuth = !!res.data.isValid;
-                const wallet = res.data.wallet; 
-                const userId=res.data.userId
-                dispatch(setAuth(isAuth,wallet,userId));
+                const wallet = res.data.wallet;
+                const userId = res.data.userId;
+                dispatch(setAuth(isAuth, wallet, userId));
                 const callback1Arg = true;
                 callback1(callback1Arg);
             })
@@ -165,26 +165,23 @@ export const axiosRemoveTask = (taskId, userToken) => {
 };
 
 export const axiosEditTask = (taskId, updates, userToken) => {
-    return dispatch => {
-        return (
-            axios({
-                method: 'put',
-                url: `${server_domain}/v1/user/task/updatetask/${taskId}`,
-                data: updates,
-                // withCredentials: true,
-                headers: { Authorization: 'Bearer ' + userToken }, //jason??
-                params: taskId
+    return dispatch =>
+        axios({
+            method: 'put',
+            url: `${server_domain}/v1/user/task/updatetask/${taskId}`,
+            data: updates,
+            // withCredentials: true,
+            headers: { Authorization: 'Bearer ' + userToken }, //jason??
+            params: taskId
+        })
+            // .put(`${server_domain}/v1/user/task/deletetask/${taskId}`)
+            .then(res => {
+                dispatch(editTask(taskId, updates));
+                history.push('/profile');
             })
-                // .put(`${server_domain}/v1/user/task/deletetask/${taskId}`)
-                .then(res => {
-                    dispatch(editTask(taskId, updates));
-                    history.push('/profile');
-                })
-                .catch(err => {
-                    console.log('edit task error ', err);
-                })
-        );
-    };
+            .catch(err => {
+                console.log('edit task error ', err);
+            });
 };
 
 export const axiosPayment = (api, amount, redirect, mobile) => {
@@ -215,52 +212,69 @@ export const axiosPayment = (api, amount, redirect, mobile) => {
             }
         })
         .then(res => {
-            console.log("ok shod");            
+            console.log('ok shod');
             console.log(res);
-            console.log('x is  : ', x)
-            
-            window.location.assign(`https://pay.ir/payment/gateway/${res.data.transId}`)
+            console.log('x is  : ', x);
+
+            window.location.assign(
+                `https://pay.ir/payment/gateway/${res.data.transId}`
+            );
         })
         .catch(err => {
-            console.log("pokh");            
-            
+            console.log('pokh');
+
             console.log(JSON.stringify(err));
         });
 };
 
-export const axiosServerPaymentUpdate = (amount,userId,status,transId)=>{
-    const x={
+export const axiosServerPaymentUpdate = (amount, userId, status, transId) => {
+    const x = {
         amount,
         userId,
         status,
         transId
-    }
+    };
 
-    axios.put(`${server_domain}/v1/user/`,x).then(res =>{
-        console.log('server verification succeeded');
-    }).catch(err=>{
-        console.log('server verification error');
-        alert('internet error,refresh to complete this action') ;   
-    })
-}
-export const axiosVerify =(userId,transId)=>{
+    axios
+        .put(`${server_domain}/v1/user/account/updateinfo`, x)
+        .then(res => {
+            console.log('server verification succeeded');
+        })
+        .catch(err => {
+            console.log('server verification error');
+            alert('internet error,refresh to complete this action');
+        });
+};
+export const axiosVerify = (userId, transId) => {
+    axios
+        .post('https://pay.ir/payment/verify', {
+            api: 'test',
+            transId
+        })
+        .then(res => {
+            console.log('ok');
+            console.log(res);
+            const amount = res.data.amount;
+            const status = res.data.status;
+            axiosServerPaymentUpdate(amount, userId, status, transId);
+        })
+        .catch(err => {
+            console.log('not ok');
+            console.log(JSON.stringify(err));
+            const status = err.data.status;
+            axiosServerPaymentUpdate(0, userId, status, transId);
+            history.push(`/payment/${status}/${transId}`);
+        });
+};
 
-    axios.post("https://pay.ir/payment/verify",{
-        api:"test",
-        transId
-    }).then(res =>{
-        console.log("ok");
-        console.log(res);
-        const amount=res.data.amount;
-        const status=res.data.status;
-        axiosServerPaymentUpdate(amount,userId,status,transId);
-    }
-    ).catch(err => {
-        console.log("not ok");
-        console.log(JSON.stringify(err));
-        const status=err.data.status;
-        axiosServerPaymentUpdate(0,userId,status,transId);
-        history.push(`/payment/${status}/${transId}`);
-    })
-}
-
+export const axiosCart = tasksId => {
+    return dispatch =>
+        axios
+            .post(`${server_domain}/v1/user/cart`, tasksId)
+            .then(res => {
+                dispatch(setTasks([...res.data]));
+            })
+            .catch(err=>{
+                console.log('axiosCart error : ' , err);
+            });
+};

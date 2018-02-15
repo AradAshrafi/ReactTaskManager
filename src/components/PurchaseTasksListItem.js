@@ -5,7 +5,7 @@ import {removeTask} from "../actions/tasks";
 import { connect } from 'react-redux';
 
 
-export class PurchaseTasksListItem extends React.Component {
+class PurchaseTasksListItem extends React.Component {
 
     Remove=()=>{
         this.props.dispatch(removeTask(this.props._id));
