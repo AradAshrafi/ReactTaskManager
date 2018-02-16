@@ -17,23 +17,25 @@ class UserProfilePage extends React.Component {
             axiosSetProfileTasks(localStorage.getItem('userToken'))
         );
     }
-    onClick = e => {
-        e.preventDefault();
-        this.setState(() => {
-            return {
-                addTaskState: true
-            };
-        });
-    };
 
-    closeModal = e => {
-        e.preventDefault();
-        this.setState(() => {
-            return {
-                addTaskState: false
-            };
-        });
-    };
+    /// Modal only used in factor page
+    // onClick = e => {
+    //     e.preventDefault();
+    //     this.setState(() => {
+    //         return {
+    //             addTaskState: true
+    //         };
+    //     });
+    // };
+
+    // closeModal = e => {
+    //     e.preventDefault();
+    //     this.setState(() => {
+    //         return {
+    //             addTaskState: false
+    //         };
+    //     });
+    // };
 
     render() {
         return (
@@ -47,10 +49,10 @@ class UserProfilePage extends React.Component {
                     >
                         Add task
                     </button>
-                    <PhoneNumModal
+                    {/* <PhoneNumModal
                         closeModal={this.closeModal}
                         addTaskState={this.state.addTaskState}
-                    />
+                    /> */}
                 </div>
             </div>
         );

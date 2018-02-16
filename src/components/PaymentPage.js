@@ -4,11 +4,14 @@ import {history} from '../routers/AppRouter';
 import { connect } from 'react-redux';
 class PaymentPage extends React.Component {
     componentWillMount(){
+        const state = this.props.match.params.state;
         const transId=this.props.match.params.transId;
         const status=this.props.match.params.status; 
         const userId= this.props.userId;
         console.log('cheeeck   ' ,userId,status);
-        status==="1" ? axiosVerify(userId,transId) : axiosServerPaymentUpdate(0,userId,status,transId);
+        if (status===1) {
+            axiosVerify(state,userId,transId);
+        }
     }
     onClick=e =>{
         e.preventDefault();

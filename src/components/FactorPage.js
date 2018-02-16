@@ -1,62 +1,101 @@
 import React from "react";
 import { connect } from 'react-redux';
 import PurchaseTasksListItem from "./PurchaseTasksListItem";
-import {axiosPayment} from "../lib/server";
+import { axiosGetFactorNumberThenPay } from "../lib/server";
 
 class FactorPage extends React.Component {
-    state={
-        totalCost:0,
-        modalStatus:false
+    state = {
+        totalCost: 0,
+        modalStatus: false,
+        phoneNum
     }
-    componentWillMount(){
 
+    componentWillMount() {
+        this.props.dispatch(setTasks({}));
+        const tasksId=localStorage.getItem('tasksId')
+        this.props.dispatch(axiosCart(tasksId));
     }
-    onBankAcc=()=>{
-        axiosPayment()
-    }
-    onWallet=()=>{
 
+    onBankAcc = () => {
+        const amount = this.state.totalCost;
+        const mobile = this.state.phoneNum;
+        const userId = this.props.userId;
+        const state = this.props.match.params.state;
+        const task;
+        const tasksId;
+        if (state == "add") {
+             task =localStorage.getItem("addTask");
+        }else{
+             tasksId =localStorage.getItem("tasksId");
+        }
+        axiosGetFactorNumberThenPay(userId,amount,state,task,tasksId);
     }
-    closeModal=()=>{
-        this.setState(()=>({
-            modalStatus:true
+    // onWallet=()=>{
+
+    // }
+    onOpenModal = () => {
+        this.setState(() => ({
+            modalStatus: true
         }))
     }
-    render(){
-        return(
+    closeModal = () => {
+        this.setState(() => ({
+            modalStatus: false
+        }))
+    }
+    onPhoneNumChange = e => {
+        const phoneNum = e.target.value;
+        this.setState(() => ({
+            phoneNum
+        }));
+    };
+    render() {
+        return (
             <div>
                 <div>
-                    {this.props.tasks.map(val=>{
-                        this.setState((prevState)=>({
-                            totalCost:prevState.totalCost+val.amount
+                    {this.props.tasks.map(val => {
+                        this.setState((prevState) => ({
+                            totalCost: prevState.totalCost + val.amount
                         }))
                         return (<PurchaseTasksListItem {...val} />)
                     })}
                     <div>
-                        <p>Total costs :{this.state.totalCost}</p> 
+                        <p>Total costs :{this.state.totalCost}</p>
                     </div>
                 </div>
-                <div>  
+                <div>
                     <h3>Payment method</h3>
-                    <button onClick={this.closeModal}>Use Bank Account</button>
-                    <button onClick={this.onWallet}>Use Wallet</button>
+                    <button onClick={this.onOpenModal}>Use Bank Account</button>
+                    {/* <button onClick={this.onWallet}>Use Wallet</button> */}
                 </div>
                 <Modal
-                isOpen={!!this.state.modalStatus}
-                onRequestClose={this.onBankAcc}
-                contentLabel="PhoneNum"
-                closeTimeoutMS={200}
-                className="modal"
+                    isOpen={!!this.state.modalStatus}
+                    onRequestClose={this.closeModal}
+                    contentLabel="PhoneNum"
+                    closeTimeoutMS={200}
+                    className="modal"
                 >
-
-                    
+                    <h3 className="modal__title">
+                        Phone Number ( For Bank Messages ) :
+                    </h3>
+                    <input
+                        className="text-input--modal"
+                        placeholder="phoneNum"
+                        type="text"
+                        value={this.state.phoneNum}
+                        onChange={this.onPhoneNumChange}
+                    />
+                    <button onClick={this.onBankAcc}> Done</button>
+                    <button onClick={this.closeModal}> Close</button>
                 </Modal>
             </div>
         );
     }
 }
 
-const mapStateToProps =(state)=>({
-    tasks:state.tasks
+const mapStateToProps = (state) => ({
+    tasks: state.tasks,
+    wallet: state.auth.wallet,
+    userId: state.auth.userId
 })
-export default connect (mapStateToProps)(FactorPage);
+export default connect(mapStateToProps)(FactorPage);

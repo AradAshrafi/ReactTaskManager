@@ -36,8 +36,8 @@ export class TaskForm extends React.Component {
         // });
 
         e.preventDefault();
-        this.state.currentState === 'adding'
-            ? (axiosAddTask({
+        if (this.state.currentState === 'adding') {
+            (localStorage.setItem('addTask', {
                 title: this.state.title,
                 description: this.state.description,
                 startDate: this.state.startDate,
@@ -46,7 +46,10 @@ export class TaskForm extends React.Component {
                 access: this.state.access,
                 amount: this.state.amount
             }))
-            : this.props.dispatch(axiosEditTask(
+            history.push('/factor/add')
+        }
+        else {
+            this.props.dispatch(axiosEditTask(
                 this.props.task._id,
                 {
                     title: this.state.title,
@@ -59,6 +62,7 @@ export class TaskForm extends React.Component {
                 },
                 localStorage.getItem('userToken')
             ));
+        }
     };
 
     onTitleChange = e => {

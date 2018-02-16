@@ -5,8 +5,16 @@ import { history } from '../routers/AppRouter';
 
 export class TasksListItem extends React.Component {
 
-    buy=()=>{
-        
+    cart = () => {
+        let arr = JSON.parse(localStorage.getItem("tasksId"));
+        if (arr === null) {
+            arr = [];
+            arr.push(this.props._id);
+        } else {
+            arr.push(this.props._id);
+        }
+        alert('task has been added to cart ');
+        localStorage.setItem("tasksId", JSON.stringify(arr))
     }
 
     render() {
@@ -27,7 +35,7 @@ export class TasksListItem extends React.Component {
                     <p className="list-item-status">{this.props.status}</p>
                     {history.location.pathname == "/dashboard" && (
                         <div >
-                            <button onClick={this.buy} className="button">Buy</button>
+                            <button onClick={this.cart} className="button">Add to cart</button>
                         </div>
                     )
                     }

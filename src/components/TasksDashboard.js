@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { setTasks } from '../actions/tasks';
 import { axiosPayment } from '../lib/server';
 class TasksDashboard extends React.Component {
+    
     componentWillMount() {
         this.props.dispatch(setTasks({}));
         this.props.dispatch(axiosSetTasksPublicUser());

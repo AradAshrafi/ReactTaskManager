@@ -184,8 +184,11 @@ export const axiosEditTask = (taskId, updates, userToken) => {
             });
 };
 
-export const axiosPayment = (api, amount, redirect, mobile) => {
+export const axiosPayment = (factorNumber, amount , mobile) => {
+    const redirect = `${server_domain}/v1/user/account/payment`;
+    const api = 'test';
     const x = formUrlencoded({
+        factorNumber:factorNumber,
         api: api,
         amount: amount,
         redirect: redirect,
@@ -247,7 +250,7 @@ export const axiosServerPaymentUpdate = (amount, userId, status, transId) => {
             alert('internet error,refresh to complete this action');
         });
 };
-export const axiosVerify = (userId, transId) => {
+export const axiosVerify = (state,userId, transId) => {
     axios
         .post('https://pay.ir/payment/verify', {
             api: 'test',
@@ -259,13 +262,14 @@ export const axiosVerify = (userId, transId) => {
             const amount = res.data.amount;
             const status = res.data.status;
             axiosServerPaymentUpdate(amount, userId, status, transId);
+            axiosAddTask
         })
         .catch(err => {
             console.log('not ok');
             console.log(JSON.stringify(err));
             const status = err.data.status;
-            axiosServerPaymentUpdate(0, userId, status, transId);
-            history.push(`/payment/${status}/${transId}`);
+            // axiosServerPaymentUpdate(0, userId, status, transId);
+            history.push(`/payment/${state}/${status}/${transId}`);//khata dar taeede tarakonesh,dobare baresh migardunim ke taeedesh kone
         });
 };
 
@@ -280,3 +284,13 @@ export const axiosCart = tasksId => {
                 console.log('axiosCart error : ' , err);
             });
 };
+
+export const axiosGetFactorNumberThenPay=(userId,amount,state,task,tasksId)=>{
+    axios.post("",{userId,amount,state,task,tasksId}).then(res=>{
+        const factorNumber=res.data.factorNumber;
+        axiosPayment(factorNumber, amount, mobile);
+    }).catch(err =>{
+
+    })
+
+}

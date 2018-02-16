@@ -9,6 +9,7 @@ class PurchaseTasksListItem extends React.Component {
 
     Remove=()=>{
         this.props.dispatch(removeTask(this.props._id));
+        JSON.parse(localStorage.getItem("tasksId"))
     }
 
     render() {

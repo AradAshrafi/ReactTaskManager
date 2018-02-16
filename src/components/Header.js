@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 export const Header = props => {
+    // state={
+    //     tasksId : JSON.parse(localStorage.getItem("tasksId"))//for cart Logo in future
+    // }
     return (
         <div className="header">
             <div className="content-container">

@@ -66,9 +66,9 @@ class AppRouter extends React.Component {
                             <PublicRoute path="/signup" component={SignUpPage} />
                             <PrivateRoute path="/profile" component={UserProfilePage} />
                             <PrivateRoute path="/cart" component={CartPage} /> 
-                            <PrivateRoute path="/factor" component={FactorPage} />                                                                                   
+                            <PrivateRoute path="/factor/:state" component={FactorPage} />                                                                                   
                             <PrivateRoute path="/edit/:id" component={EditTaskPage} />
-                            <PrivateRoute path="/payment/:status/:transId" component={PaymentPage} />
+                            <PrivateRoute path="/payment/:state/:status/:transId" component={PaymentPage} />
                             <Route component={NotFoundPage} />
                         </Switch>
                     )}

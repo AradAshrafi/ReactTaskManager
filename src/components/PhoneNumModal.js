@@ -25,11 +25,9 @@ class PhoneNumModal extends React.Component {
 
     submitAndMakeModalGo = e => {
         e.preventDefault();
-        const api = 'test';
         const amount = this.state.amount;
-        const redirect = `${server_domain}/v1/user/account/payment`;
         const mobile = this.state.phoneNum;
-        axiosPayment(api, amount, redirect, mobile);
+        axiosPayment( amount, mobile);
     };
     render() {
         return (
