@@ -4,12 +4,13 @@ import { Link } from 'react-router-dom';
 import { axiosSetProfileTasks } from '../lib/server';
 import { connect } from 'react-redux';
 import { setTasks } from '../actions/tasks';
+import { history } from '../routers/AppRouter';
 import PhoneNumModal from './PhoneNumModal';
 
 class UserProfilePage extends React.Component {
-    state = {
-        addTaskState: false
-    };
+    // state = {
+    //     addTaskState: false
+    // };
 
     componentWillMount() {
         this.props.dispatch(setTasks({}));
@@ -19,14 +20,15 @@ class UserProfilePage extends React.Component {
     }
 
     /// Modal only used in factor page
-    // onClick = e => {
-    //     e.preventDefault();
-    //     this.setState(() => {
-    //         return {
-    //             addTaskState: true
-    //         };
-    //     });
-    // };
+    onClick = e => {
+        e.preventDefault();
+        this.setState(() => {
+            history.push('/create');
+            // return {
+            //     addTaskState: true
+            // };
+        });
+    };
 
     // closeModal = e => {
     //     e.preventDefault();

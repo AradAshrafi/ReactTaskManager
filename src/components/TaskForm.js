@@ -5,6 +5,7 @@ import 'react-dates/lib/css/_datepicker.css';
 import moment from 'moment';
 import { axiosAddTask, axiosEditTask } from '../lib/server';
 import { connect } from 'react-redux';
+import {history} from '../routers/AppRouter';
 
 export class TaskForm extends React.Component {
     constructor(props) {

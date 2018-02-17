@@ -1,13 +1,16 @@
 import React from "react";
 import { connect } from 'react-redux';
 import PurchaseTasksListItem from "./PurchaseTasksListItem";
-import { axiosGetFactorNumberThenPay } from "../lib/server";
+import Modal from 'react-modal'
+import { axiosCart,axiosGetFactorNumberThenPay } from "../lib/server";
+import { setTasks } from '../actions/tasks';
+
 
 class FactorPage extends React.Component {
     state = {
         totalCost: 0,
         modalStatus: false,
-        phoneNum
+        phoneNum : 0
     }
 
     componentWillMount() {
@@ -21,14 +24,14 @@ class FactorPage extends React.Component {
         const mobile = this.state.phoneNum;
         const userId = this.props.userId;
         const state = this.props.match.params.state;
-        const task;
-        const tasksId;
+        let task;
+        let tasksId;
         if (state == "add") {
              task =localStorage.getItem("addTask");
         }else{
              tasksId =localStorage.getItem("tasksId");
         }
-        axiosGetFactorNumberThenPay(userId,amount,state,task,tasksId);
+        axiosGetFactorNumberThenPay(userId,amount,state,task,tasksId,mobile);
     }
     // onWallet=()=>{
 
