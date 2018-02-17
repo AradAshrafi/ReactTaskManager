@@ -286,6 +286,7 @@ export const axiosCart = tasksId => {
 };
 
 export const axiosGetFactorNumberThenPay=(userId,amount,state,task,tasksId,mobile)=>{
+    console.log(userId,amount,state,task,tasksId);
     axios.post(`${server_domain}/v1/user/factor/add`,{userId,amount,state,task,tasksId}).then(res=>{
         console.log('res : ',res);
         const factorNumber=res.data.factorNumber;

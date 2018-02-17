@@ -19,13 +19,13 @@ class FactorPage extends React.Component {
         const tasksId = JSON.parse(localStorage.getItem('tasksId'));
         this.props.dispatch(axiosCart(tasksId));
         if (this.props.match.params.state === 'add') {
-            console.log('flag');
             const task = JSON.parse(localStorage.getItem('addTask'));
-            console.log(task);
-            this.setState(() => ({
-                task: task,
-                totalCost: task.amount
-            }));
+            // this.setState(() => ({
+            //     task: task,
+            //     totalCost: task.amount
+            // }));
+            this.state.task=task;
+            this.state.totalCost=task.amount;
             console.log('task is : ', this.state.task);
             console.log(this);
             console.log(
@@ -44,8 +44,8 @@ class FactorPage extends React.Component {
         const mobile = this.state.phoneNum;
         const userId = this.props.userId;
         const state = this.props.match.params.state;
-        let task;
-        let tasksId;
+        const task=this.state.task;
+        const tasksId=this.state.tasksId;
 
         axiosGetFactorNumberThenPay(
             userId,
