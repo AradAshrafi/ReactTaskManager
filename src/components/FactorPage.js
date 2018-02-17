@@ -1,22 +1,42 @@
-import React from "react";
+import React from 'react';
 import { connect } from 'react-redux';
-import PurchaseTasksListItem from "./PurchaseTasksListItem";
-import Modal from 'react-modal'
-import { axiosCart,axiosGetFactorNumberThenPay } from "../lib/server";
+import PurchaseTasksListItem from './PurchaseTasksListItem';
+import Modal from 'react-modal';
+import { axiosCart, axiosGetFactorNumberThenPay } from '../lib/server';
 import { setTasks } from '../actions/tasks';
-
 
 class FactorPage extends React.Component {
     state = {
         totalCost: 0,
         modalStatus: false,
-        phoneNum : 0
-    }
+        phoneNum: 0,
+        task: {},
+        tasksId: []
+    };
 
     componentWillMount() {
         this.props.dispatch(setTasks({}));
-        const tasksId=localStorage.getItem('tasksId')
+        const tasksId = JSON.parse(localStorage.getItem('tasksId'));
         this.props.dispatch(axiosCart(tasksId));
+        if (this.props.match.params.state === 'add') {
+            console.log('flag');
+            const task = JSON.parse(localStorage.getItem('addTask'));
+            console.log(task);
+            this.setState(() => ({
+                task: task,
+                totalCost: task.amount
+            }));
+            console.log('task is : ', this.state.task);
+            console.log(this);
+            console.log(
+                'task is : ',
+                JSON.parse(localStorage.getItem('addTask'))
+            );
+        } else {
+            this.setState(() => ({
+                tasksId: JSON.parse(localStorage.getItem('tasksId'))
+            }));
+        }
     }
 
     onBankAcc = () => {
@@ -26,26 +46,29 @@ class FactorPage extends React.Component {
         const state = this.props.match.params.state;
         let task;
         let tasksId;
-        if (state == "add") {
-             task =localStorage.getItem("addTask");
-        }else{
-             tasksId =localStorage.getItem("tasksId");
-        }
-        axiosGetFactorNumberThenPay(userId,amount,state,task,tasksId,mobile);
-    }
+
+        axiosGetFactorNumberThenPay(
+            userId,
+            amount,
+            state,
+            task,
+            tasksId,
+            mobile
+        );
+    };
     // onWallet=()=>{
 
     // }
     onOpenModal = () => {
         this.setState(() => ({
             modalStatus: true
-        }))
-    }
+        }));
+    };
     closeModal = () => {
         this.setState(() => ({
             modalStatus: false
-        }))
-    }
+        }));
+    };
     onPhoneNumChange = e => {
         const phoneNum = e.target.value;
         this.setState(() => ({
@@ -56,12 +79,16 @@ class FactorPage extends React.Component {
         return (
             <div>
                 <div>
-                    {this.props.tasks.map(val => {
-                        this.setState((prevState) => ({
-                            totalCost: prevState.totalCost + val.amount
-                        }))
-                        return (<PurchaseTasksListItem {...val} />)
-                    })}
+                    {this.props.match.params.state === 'add' && (
+                        <PurchaseTasksListItem task={this.state.task} />
+                    )}
+                    {this.props.match.params.state === 'buy' &&
+                        this.state.tasksId.map(val => {
+                            this.setState(prevState => ({
+                                totalCost: prevState.totalCost + val.amount
+                            }));
+                            return <PurchaseTasksListItem {...val} />;
+                        })}
                     <div>
                         <p>Total costs :{this.state.totalCost}</p>
                     </div>
@@ -96,9 +123,8 @@ class FactorPage extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    tasks: state.tasks,
+const mapStateToProps = state => ({
     wallet: state.auth.wallet,
     userId: state.auth.userId
-})
+});
 export default connect(mapStateToProps)(FactorPage);

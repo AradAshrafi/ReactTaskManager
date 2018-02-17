@@ -3,9 +3,10 @@ import thunk from 'redux-thunk';
 import { DateRangePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import moment from 'moment';
+import { setTasks } from '../actions/tasks';
 import { axiosAddTask, axiosEditTask } from '../lib/server';
 import { connect } from 'react-redux';
-import {history} from '../routers/AppRouter';
+import { history } from '../routers/AppRouter';
 
 export class TaskForm extends React.Component {
     constructor(props) {
@@ -38,7 +39,7 @@ export class TaskForm extends React.Component {
 
         e.preventDefault();
         if (this.state.currentState === 'adding') {
-            (localStorage.setItem('addTask', {
+            const addingTaskObj={
                 title: this.state.title,
                 description: this.state.description,
                 startDate: this.state.startDate,
@@ -46,23 +47,29 @@ export class TaskForm extends React.Component {
                 status: this.state.status,
                 access: this.state.access,
                 amount: this.state.amount
-            }))
-            history.push('/factor/add')
-        }
-        else {
-            this.props.dispatch(axiosEditTask(
-                this.props.task._id,
-                {
-                    title: this.state.title,
-                    description: this.state.description,
-                    startDate: this.state.startDate,
-                    endDate: this.state.endDate,
-                    status: this.state.status,
-                    access: this.state.access,
-                    amount: this.state.amount
-                },
-                localStorage.getItem('userToken')
-            ));
+            }
+            localStorage.setItem(
+                'addTask',
+                JSON.stringify(addingTaskObj)
+            );
+            setTasks(addingTaskObj);
+            history.push('/factor/add');
+        } else {
+            this.props.dispatch(
+                axiosEditTask(
+                    this.props.task._id,
+                    {
+                        title: this.state.title,
+                        description: this.state.description,
+                        startDate: this.state.startDate,
+                        endDate: this.state.endDate,
+                        status: this.state.status,
+                        access: this.state.access,
+                        amount: this.state.amount
+                    },
+                    localStorage.getItem('userToken')
+                )
+            );
         }
     };
 
@@ -104,7 +111,6 @@ export class TaskForm extends React.Component {
         const amount = e.target.value;
         this.setState(() => ({ amount }));
     };
-
 
     render() {
         return (
@@ -180,7 +186,9 @@ export class TaskForm extends React.Component {
                     </div>
                 </div>
                 <div className="input-group">
-                    <button className="button button--link button--cover">Save Task</button>
+                    <button className="button button--link button--cover">
+                        Save Task
+                    </button>
                 </div>
             </form>
         );
