@@ -20,7 +20,7 @@ class CartPage extends React.Component {
             <div>
                 <h1>Cart : </h1>
                 {this.props.tasks.map(task=>(
-                    <PurchaseTasksListItem {...task} />
+                    <PurchaseTasksListItem key={task._id}{...task} />
                 ))}
                 <button onClick={this.onConfirm}>Confirm</button>
             </div>

@@ -21,6 +21,9 @@ export const Header = props => {
                             >
                                 Profile
                             </Link>
+                            <Link className="button button--link header--button" to="/cart">
+                                CartPage
+                            </Link>
                             <a
                                 href="/"
                                 className="button button--link"
