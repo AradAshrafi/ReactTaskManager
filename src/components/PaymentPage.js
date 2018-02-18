@@ -9,14 +9,15 @@ class PaymentPage extends React.Component {
         const status=this.props.match.params.status; 
         const userId= this.props.userId;
         console.log('cheeeck   ' ,userId,status);
-        if (status===1) {
+        if (status=="1") { //satus ra b onvane string b ma barmigardanad
+            console.log(typeof(transId)); 
             axiosVerify(state,userId,transId);
         }
+        
     }
     onClick=e =>{
         e.preventDefault();
-        axiosAddTask(JSON.parse(localStorage.getItem('addTask')))
-        localStorage.removeItem('addTask');
+        axiosAddTask(JSON.parse(localStorage.getItem('addTask'))); ////in bayad bere bala chon bere birun etelaat mipare dg !!
     }
     onReturnClick =(e)=>{
         e.preventDefault();

@@ -45,13 +45,15 @@ export class TaskForm extends React.Component {
                 endDate: this.state.endDate,
                 status: this.state.status,
                 access: this.state.access,
-                amount: this.state.amount
+                amount: parseInt(this.state.amount)
             }
             localStorage.setItem(
                 'addTask',
                 JSON.stringify(addingTaskObj)
             );
-            setTasks(addingTaskObj);
+            setTasks(addingTaskObj); /////dispatch?? vurudi bayad araye bashas
+            console.log("addingTaskObj",addingTaskObj);
+            alert("addingTaskObj");            
             history.push('/factor/add');
         } else {
             this.props.dispatch(
@@ -64,7 +66,7 @@ export class TaskForm extends React.Component {
                         endDate: this.state.endDate,
                         status: this.state.status,
                         access: this.state.access,
-                        amount: this.state.amount
+                        amount: this.state.amount ////inaja parsInt bayad integer konim
                     },
                     localStorage.getItem('userToken')
                 )

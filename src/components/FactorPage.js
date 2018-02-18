@@ -15,8 +15,9 @@ class FactorPage extends React.Component {
     };
 
     componentWillMount() {
-        this.props.dispatch(setTasks({}));
+        this.props.dispatch(setTasks({})); ///injaham k redux o khali mikonim az tasks !
         const tasksId = JSON.parse(localStorage.getItem('tasksId'));
+        // console.log("tasksId in componentWillMount localStorage: ",tasksId);
         this.props.dispatch(axiosCart(tasksId));
         if (this.props.match.params.state === 'add') {
             const task = JSON.parse(localStorage.getItem('addTask'));
@@ -25,7 +26,8 @@ class FactorPage extends React.Component {
             //     totalCost: task.amount
             // }));
             this.state.task=task;
-            this.state.totalCost=task.amount;
+            // this.state.totalCost=parseInt(task.amount);
+            this.state.totalCost=5000;
             console.log('task is : ', this.state.task);
             console.log(this);
             console.log(
@@ -40,7 +42,8 @@ class FactorPage extends React.Component {
     }
 
     onBankAcc = () => {
-        const amount = this.state.totalCost;
+
+        const amount = this.state.totalCost; ///bayad begim amount age add bashe chejurie?
         const mobile = this.state.phoneNum;
         const userId = this.props.userId;
         const state = this.props.match.params.state;
@@ -76,16 +79,17 @@ class FactorPage extends React.Component {
         }));
     };
     render() {
+        console.log("redux:",this.props.store)
         return (
             <div>
                 <div>
                     {this.props.match.params.state === 'add' && (
-                        <PurchaseTasksListItem task={this.state.task} />
+                        <PurchaseTasksListItem {...this.state.task} /> //bayad destructure mikardim
                     )}
                     {this.props.match.params.state === 'buy' &&
-                        this.state.tasksId.map(val => {
+                        this.props.tasks.map(val => {
                             this.setState(prevState => ({
-                                totalCost: prevState.totalCost + val.amount
+                                totalCost: prevState.totalCost + val.amount ////tasksId amount nadarad 
                             }));
                             return <PurchaseTasksListItem {...val} />;
                         })}
@@ -125,6 +129,7 @@ class FactorPage extends React.Component {
 
 const mapStateToProps = state => ({
     wallet: state.auth.wallet,
-    userId: state.auth.userId
+    userId: state.auth.userId,
+    tasks:state.tasks
 });
 export default connect(mapStateToProps)(FactorPage);

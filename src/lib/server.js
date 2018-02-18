@@ -58,10 +58,11 @@ export const axiosAddTask = task => {
             headers: { Authorization: 'Bearer ' + userToken }
         })
         .then(res => {
-            history.push('/dashboard');
+            history.push('/profile'); /// bayad bere profile
+            localStorage.removeItem('addTask');
         })
         .catch(err => {
-            console.log('addtask error reponse ::', err);
+            console.log('addtask error reponse : ', err);
             alert('addTask  error');
         });
 };
@@ -237,12 +238,19 @@ export const axiosServerPaymentUpdate = (amount, userId, status, transId) => {
         status,
         transId
     };
+    alert("fuck1");
+    axios({
+        method:"put",
+        url:`${server_domain}/v1/user/account/updateinfo`,
+        data:x,
+        headers:{ Authorization: 'Bearer ' + localStorage.getItem("userToken") }
 
-    axios
-        .put(`${server_domain}/v1/user/account/updateinfo`, x,{
-            headers: { Authorization: 'Bearer ' + userToken }
-        })
+    })
+        // (`${server_domain}/v1/user/account/updateinfo`, x,{
+        //     headers: { Authorization: 'Bearer ' + userToken }
+        // })
         .then(res => {
+            alert("fuck");
             console.log('server verification succeeded');
         })
         .catch(err => {
@@ -259,17 +267,28 @@ export const axiosVerify = (state,userId, transId) => {
         .then(res => {
             console.log('ok');
             console.log(res);
-            const amount = res.data.amount;
+            const a = res.data.amount;
+            const amount = parseInt(a);
             const status = res.data.status;
-            axiosServerPaymentUpdate(amount, userId, status, transId);
-            axiosAddTask
+            const transId2=parseInt(transId);
+            // const transId=transId2;
+            // const status=status2.toString(); 
+            console.log("amount:",amount,"userId:",userId,"status:",status,"trasnId2:",transId2)
+            console.log("typeof amount",typeof(amount));
+            console.log("typeof userId",typeof(userId));
+            console.log("typeof status",typeof(status));
+            console.log("typeof transId2",typeof(transId2));
+            
+            axiosServerPaymentUpdate(amount, userId, status, transId2);
+            console.log('test');
+            
         })
         .catch(err => {
-            console.log('not ok');
+            console.log('not ok',err);
             console.log(JSON.stringify(err));
-            const status = err.data.status;
+            // const status = err.data.status;
             // axiosServerPaymentUpdate(0, userId, status, transId);
-            history.push(`/payment/${state}/${status}/${transId}`);//khata dar taeede tarakonesh,dobare baresh migardunim ke taeedesh kone
+            // history.push(`/payment/${state}/${status}/${transId}`);//khata dar taeede tarakonesh,dobare baresh migardunim ke taeedesh kone
         });
 };
 
