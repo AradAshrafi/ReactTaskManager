@@ -23,7 +23,6 @@ export class TaskForm extends React.Component {
             calendarFocused: null,
             error: ''
         };
-        console.log(this.state.currentState, 'props : ', this.props);
     }
 
     onSubmit = e => {

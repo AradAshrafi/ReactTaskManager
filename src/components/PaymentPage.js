@@ -1,5 +1,5 @@
 import React from 'react';
-import {axiosVerify , axiosServerPaymentUpdate} from "../lib/server"
+import {axiosVerify , axiosServerPaymentUpdate , axiosAddTask} from "../lib/server"
 import {history} from '../routers/AppRouter';
 import { connect } from 'react-redux';
 class PaymentPage extends React.Component {
@@ -15,7 +15,8 @@ class PaymentPage extends React.Component {
     }
     onClick=e =>{
         e.preventDefault();
-        history.push(`/create`);
+        axiosAddTask(JSON.parse(localStorage.getItem('addTask')))
+        localStorage.removeItem('addTask');
     }
     onReturnClick =(e)=>{
         e.preventDefault();
