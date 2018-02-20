@@ -8,7 +8,9 @@ import {history} from "../routers/AppRouter";
 class CartPage extends React.Component {
     componentWillMount() {
         this.props.dispatch(setTasks({}));
-        const tasksId=localStorage.getItem('tasksId')
+        let tasksId=JSON.parse(localStorage.getItem('tasksId'))
+        tasksId={tasksId}
+        console.log(tasksId)
         this.props.dispatch(axiosCart(tasksId));
     }
     onConfirm=(e)=>{

@@ -8,8 +8,10 @@ import { connect } from 'react-redux';
 class PurchaseTasksListItem extends React.Component {
 
     Remove=()=>{
+        const taskId=this.props._id
         this.props.dispatch(removeTask(this.props._id));
         JSON.parse(localStorage.getItem("tasksId"))
+
     }
 
     render() {

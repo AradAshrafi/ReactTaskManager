@@ -185,11 +185,11 @@ export const axiosEditTask = (taskId, updates, userToken) => {
             });
 };
 
-export const axiosPayment = (factorNumber, amount , mobile) => {
+export const axiosPayment = (factorNumber, amount, mobile) => {
     const redirect = `${server_domain}/v1/user/account/payment`;
     const api = 'test';
     const x = formUrlencoded({
-        factorNumber:factorNumber,
+        factorNumber: factorNumber,
         api: api,
         amount: amount,
         redirect: redirect,
@@ -238,19 +238,20 @@ export const axiosServerPaymentUpdate = (amount, userId, status, transId) => {
         status,
         transId
     };
-    alert("fuck1");
+    alert('fuck1');
     axios({
-        method:"put",
-        url:`${server_domain}/v1/user/account/updateinfo`,
-        data:x,
-        headers:{ Authorization: 'Bearer ' + localStorage.getItem("userToken") }
-
+        method: 'put',
+        url: `${server_domain}/v1/user/account/updateinfo`,
+        data: x,
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('userToken')
+        }
     })
         // (`${server_domain}/v1/user/account/updateinfo`, x,{
         //     headers: { Authorization: 'Bearer ' + userToken }
         // })
         .then(res => {
-            alert("fuck");
+            alert('fuck');
             console.log('server verification succeeded');
         })
         .catch(err => {
@@ -258,7 +259,7 @@ export const axiosServerPaymentUpdate = (amount, userId, status, transId) => {
             alert('internet error,refresh to complete this action');
         });
 };
-export const axiosVerify = (state,userId, transId) => {
+export const axiosVerify = (state, userId, transId) => {
     axios
         .post('https://pay.ir/payment/verify', {
             api: 'test',
@@ -270,21 +271,29 @@ export const axiosVerify = (state,userId, transId) => {
             const a = res.data.amount;
             const amount = parseInt(a);
             const status = res.data.status;
-            const transId2=parseInt(transId);
+            const transId2 = parseInt(transId);
             // const transId=transId2;
-            // const status=status2.toString(); 
-            console.log("amount:",amount,"userId:",userId,"status:",status,"trasnId2:",transId2)
-            console.log("typeof amount",typeof(amount));
-            console.log("typeof userId",typeof(userId));
-            console.log("typeof status",typeof(status));
-            console.log("typeof transId2",typeof(transId2));
-            
+            // const status=status2.toString();
+            console.log(
+                'amount:',
+                amount,
+                'userId:',
+                userId,
+                'status:',
+                status,
+                'trasnId2:',
+                transId2
+            );
+            console.log('typeof amount', typeof amount);
+            console.log('typeof userId', typeof userId);
+            console.log('typeof status', typeof status);
+            console.log('typeof transId2', typeof transId2);
+
             axiosServerPaymentUpdate(amount, userId, status, transId2);
             console.log('test');
-            
         })
         .catch(err => {
-            console.log('not ok',err);
+            console.log('not ok', err);
             console.log(JSON.stringify(err));
             // const status = err.data.status;
             // axiosServerPaymentUpdate(0, userId, status, transId);
@@ -292,26 +301,47 @@ export const axiosVerify = (state,userId, transId) => {
         });
 };
 
-export const axiosCart = tasksId => {
+export const axiosCart = (tasksId, cb) => {
     return dispatch =>
         axios
-            .post(`${server_domain}/v1/user/cart`, tasksId)
-            .then(res => {
-                dispatch(setTasks([...res.data]));
+            .post(`${server_domain}/v1/user/task/factortasks`, tasksId, {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('userToken')
+                }
             })
-            .catch(err=>{
-                console.log('axiosCart error : ' , err);
+            .then(res => {
+                console.log('res  : ', [...res.data]);
+                dispatch(setTasks([...res.data]));
+                cb();
+            })
+            .catch(err => {
+                console.log('axiosCart error : ', err);
             });
 };
 
-export const axiosGetFactorNumberThenPay=(userId,amount,state,task,tasksId,mobile)=>{
-    console.log(userId,amount,state,task,tasksId);
-    axios.post(`${server_domain}/v1/user/factor/add`,{userId,amount,state,task,tasksId}).then(res=>{
-        console.log('res : ',res);
-        const factorNumber=res.data.factorNumber;
-        axiosPayment(factorNumber, amount, mobile);
-    }).catch(err =>{
-        console.log(err);
-    })
-
-}
+export const axiosGetFactorNumberThenPay = (
+    userId,
+    amount,
+    state,
+    task,
+    tasksId,
+    mobile
+) => {
+    console.log(userId, amount, state, task, tasksId);
+    axios
+        .post(`${server_domain}/v1/user/factor/add`, {
+            userId,
+            amount,
+            state,
+            task,
+            tasksId
+        })
+        .then(res => {
+            console.log('res : ', res);
+            const factorNumber = res.data.factorNumber;
+            axiosPayment(factorNumber, amount, mobile);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+};

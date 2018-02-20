@@ -16,18 +16,15 @@ class FactorPage extends React.Component {
 
     componentWillMount() {
         this.props.dispatch(setTasks({})); ///injaham k redux o khali mikonim az tasks !
-        const tasksId = JSON.parse(localStorage.getItem('tasksId'));
-        // console.log("tasksId in componentWillMount localStorage: ",tasksId);
-        this.props.dispatch(axiosCart(tasksId));
+        this.state.totalCost = 0; //for Link situations
         if (this.props.match.params.state === 'add') {
             const task = JSON.parse(localStorage.getItem('addTask'));
             // this.setState(() => ({
             //     task: task,
             //     totalCost: task.amount
             // }));
-            this.state.task=task;
-            // this.state.totalCost=parseInt(task.amount);
-            this.state.totalCost=5000;
+            this.state.task = task;
+            this.state.totalCost = 5000;
             console.log('task is : ', this.state.task);
             console.log(this);
             console.log(
@@ -35,20 +32,33 @@ class FactorPage extends React.Component {
                 JSON.parse(localStorage.getItem('addTask'))
             );
         } else {
-            this.setState(() => ({
-                tasksId: JSON.parse(localStorage.getItem('tasksId'))
-            }));
+            let tasksId = JSON.parse(localStorage.getItem('tasksId'));
+            this.state.tasksId = tasksId;
+            tasksId = { tasksId };
+            this.props.dispatch(
+                axiosCart(tasksId, () => {
+                    alert('biyotch');
+                    console.log(this.props.tasks)
+                    this.props.tasks.map((val) => {
+                        
+                        const totalCost = this.state.totalCost + parseInt(val.amount);
+                        this.setState(()=>({
+                            totalCost
+                        }))
+                    });
+                })
+            );
+
+            console.log('adsfasdf  ', this.state.tasksId);
         }
     }
-
     onBankAcc = () => {
-
         const amount = this.state.totalCost; ///bayad begim amount age add bashe chejurie?
         const mobile = this.state.phoneNum;
         const userId = this.props.userId;
         const state = this.props.match.params.state;
-        const task=this.state.task;
-        const tasksId=this.state.tasksId;
+        const task = this.state.task;
+        const tasksId = this.state.tasksId;
 
         axiosGetFactorNumberThenPay(
             userId,
@@ -79,7 +89,7 @@ class FactorPage extends React.Component {
         }));
     };
     render() {
-        console.log("redux:",this.props.store)
+        console.log('redux:', this.props);
         return (
             <div>
                 <div>
@@ -88,9 +98,9 @@ class FactorPage extends React.Component {
                     )}
                     {this.props.match.params.state === 'buy' &&
                         this.props.tasks.map(val => {
-                            this.setState(prevState => ({
-                                totalCost: prevState.totalCost + val.amount ////tasksId amount nadarad 
-                            }));
+                            // this.setState(prevState => ({
+                            //     totalCost: prevState.totalCost + val.amount ////tasksId amount nadarad
+                            // }));
                             return <PurchaseTasksListItem {...val} />;
                         })}
                     <div>
@@ -130,6 +140,6 @@ class FactorPage extends React.Component {
 const mapStateToProps = state => ({
     wallet: state.auth.wallet,
     userId: state.auth.userId,
-    tasks:state.tasks
+    tasks: state.tasks
 });
 export default connect(mapStateToProps)(FactorPage);

@@ -28,7 +28,7 @@ export const Header = props => {
                                 href="/"
                                 className="button button--link"
                                 onClick={() =>
-                                    localStorage.removeItem('userToken')
+                                    localStorage.clear()
                                 } //hatman bayad dakhele function benevisim
                             >
                                 Log Out
