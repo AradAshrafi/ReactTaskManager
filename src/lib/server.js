@@ -52,6 +52,7 @@ export const axiosLogIn = ({ email, password }) => {
 };
 
 export const axiosAddTask = task => {
+    console.log('fuching task',task);
     const userToken = localStorage.getItem('userToken');
     axios
         .post(`${server_domain}/v1/user/task/create`, task, {
@@ -334,11 +335,15 @@ export const axiosGetFactorNumberThenPay = (
             amount,
             state,
             task,
-            tasksId
+            tasksId,
+            coupen:1,
         })
         .then(res => {
             console.log('res : ', res);
             const factorNumber = res.data.factorNumber;
+            const amount =res.data["new amount"];
+            console.log("new amount",typeof(amount));
+            console.log("factorNumber",factorNumber);            
             axiosPayment(factorNumber, amount, mobile);
         })
         .catch(err => {

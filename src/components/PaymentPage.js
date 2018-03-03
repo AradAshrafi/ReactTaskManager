@@ -17,7 +17,13 @@ class PaymentPage extends React.Component {
     }
     onClick=e =>{
         e.preventDefault();
-        axiosAddTask(JSON.parse(localStorage.getItem('addTask'))); ////in bayad bere bala chon bere birun etelaat mipare dg !!
+        console.log(this.props.match.params.state.substring(0,3));
+        if(this.props.match.params.state.substring(0,3)=="add"){
+        axiosAddTask(JSON.parse(localStorage.getItem('addTask'))); ////in bayad bere bala chon bere birun etelaat mipare dg !!            
+        }else{
+            history.push('/profile'); /// bayad bere profile
+        }
+        
     }
     onReturnClick =(e)=>{
         e.preventDefault();
